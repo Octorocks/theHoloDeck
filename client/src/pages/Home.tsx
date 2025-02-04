@@ -1,23 +1,42 @@
 import { Environment } from '@/components/3d/Environment'
 import { useState, useCallback } from 'react'
 import * as THREE from 'three'
+import { gsap } from 'gsap'
 
 export default function Home() {
   const [activeObject, setActiveObject] = useState<string | null>(null)
+  const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null)
+  const [controls, setControls] = useState<any>(null)
 
-  const handleObjectSelect = useCallback((
-    position: THREE.Vector3,
-    target: THREE.Vector3,
-    objectId: string
-  ) => {
-    setActiveObject(objectId)
-  }, [])
+  const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
+    if (camera && controls) {
+      gsap.to(camera.position, {
+        x: position.x,
+        y: position.y,
+        z: position.z,
+        duration: 2,
+        ease: "power2.inOut"
+      })
+
+      gsap.to(controls.target, {
+        x: target.x,
+        y: target.y,
+        z: target.z,
+        duration: 2,
+        ease: "power2.inOut"
+      })
+
+      setActiveObject(objectId)
+    }
+  }, [camera, controls])
 
   return (
     <div className="w-full h-screen overflow-hidden bg-black">
       <Environment 
-        onObjectSelect={handleObjectSelect}
+        onObjectSelect={moveCamera}
         activeObject={activeObject}
+        onControlsReady={setControls}
+        onCameraReady={setCamera}
       />
 
       <div className="fixed top-4 left-4 z-10">
@@ -34,7 +53,7 @@ export default function Home() {
           <ul className="space-y-2">
             <li>
               <button
-                onClick={() => handleObjectSelect(
+                onClick={() => moveCamera(
                   new THREE.Vector3(0, 8, 15),
                   new THREE.Vector3(0, 0, 0),
                   'cube'
@@ -50,7 +69,7 @@ export default function Home() {
             </li>
             <li>
               <button
-                onClick={() => handleObjectSelect(
+                onClick={() => moveCamera(
                   new THREE.Vector3(-12, 5, -10),
                   new THREE.Vector3(-15, 0, -15),
                   'avatar'
@@ -66,7 +85,7 @@ export default function Home() {
             </li>
             <li>
               <button
-                onClick={() => handleObjectSelect(
+                onClick={() => moveCamera(
                   new THREE.Vector3(12, 8, -20),
                   new THREE.Vector3(15, 5, -25),
                   'sphere'
@@ -82,7 +101,7 @@ export default function Home() {
             </li>
             <li>
               <button
-                onClick={() => handleObjectSelect(
+                onClick={() => moveCamera(
                   new THREE.Vector3(-6, 5, -25),
                   new THREE.Vector3(-8, 0, -30),
                   'city'
