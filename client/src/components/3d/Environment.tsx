@@ -10,12 +10,16 @@ import { useAudio } from '@/hooks/use-audio'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 
-export function Environment() {
+interface EnvironmentProps {
+  onObjectSelect: (position: THREE.Vector3, target: THREE.Vector3, objectId: string) => void
+  activeObject: string | null
+}
+
+export function Environment({ onObjectSelect, activeObject }: EnvironmentProps) {
   const [loaded, setLoaded] = useState(false)
   const { playAmbient } = useAudio()
   const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null)
   const [controls, setControls] = useState<any>(null)
-  const [activeObject, setActiveObject] = useState<string | null>(null)
 
   useEffect(() => {
     if (loaded) {
@@ -25,7 +29,6 @@ export function Environment() {
 
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
     if (camera && controls) {
-      setActiveObject(objectId)
       gsap.to(camera.position, {
         x: position.x,
         y: position.y,
@@ -41,8 +44,10 @@ export function Environment() {
         duration: 2,
         ease: "power2.inOut"
       })
+
+      onObjectSelect(position, target, objectId)
     }
-  }, [camera, controls])
+  }, [camera, controls, onObjectSelect])
 
   return (
     <div className="w-full h-screen">
@@ -50,7 +55,7 @@ export function Environment() {
         <PerspectiveCamera 
           ref={setCamera}
           makeDefault 
-          position={[0, 15, 35]} // Higher and further back for better overview
+          position={[0, 15, 35]}
         />
         <OrbitControls 
           ref={setControls}
