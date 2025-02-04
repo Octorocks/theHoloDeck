@@ -3,9 +3,13 @@ import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 
-export function TechSphere() {
+interface TechSphereProps {
+  onClick: () => void
+}
+
+export function TechSphere({ onClick }: TechSphereProps) {
   const sphereRef = useRef<THREE.Mesh>(null)
-  
+
   useFrame((state) => {
     if (sphereRef.current) {
       sphereRef.current.rotation.y += 0.005
@@ -15,7 +19,7 @@ export function TechSphere() {
 
   return (
     <group>
-      <mesh ref={sphereRef}>
+      <mesh ref={sphereRef} onClick={onClick}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshPhongMaterial 
           color={0x00ff00}

@@ -3,7 +3,11 @@ import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { holographicMaterial } from './shaders/holographic'
 
-export function Cityscape() {
+interface CityscapeProps {
+  onClick: () => void
+}
+
+export function Cityscape({ onClick }: CityscapeProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
 
@@ -14,7 +18,7 @@ export function Cityscape() {
   })
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} onClick={onClick}>
       {/* Simple cityscape made of boxes */}
       {[...Array(5)].map((_, i) => (
         <mesh 

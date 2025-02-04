@@ -2,8 +2,13 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { holographicMaterial } from './shaders/holographic'
 import { Html } from '@react-three/drei'
+import * as THREE from 'three'
 
-export function Avatar() {
+interface AvatarProps {
+  onClick: () => void
+}
+
+export function Avatar({ onClick }: AvatarProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
 
@@ -16,8 +21,7 @@ export function Avatar() {
 
   return (
     <group ref={groupRef}>
-      {/* Simple avatar silhouette */}
-      <mesh>
+      <mesh onClick={onClick}>
         <cylinderGeometry args={[0.5, 0.3, 2, 32]} />
         <primitive object={material} attach="material" />
       </mesh>

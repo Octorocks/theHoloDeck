@@ -7,9 +7,10 @@ import { holographicMaterial } from './shaders/holographic'
 interface PowerCubeProps {
   position: [number, number, number]
   onLoad: () => void
+  onClick: () => void
 }
 
-export function PowerCube({ position, onLoad }: PowerCubeProps) {
+export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   const meshRef = useRef<Mesh>(null)
   const material = holographicMaterial()
 
@@ -35,6 +36,7 @@ export function PowerCube({ position, onLoad }: PowerCubeProps) {
     <mesh 
       ref={meshRef} 
       position={[position[0], position[1] + 5, position[2]]}
+      onClick={onClick}
     >
       <boxGeometry args={[1, 1, 1]} />
       <primitive object={material} attach="material" />
