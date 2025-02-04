@@ -37,9 +37,9 @@ export function HolographicGrid() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[100, 100]} />
         <meshStandardMaterial 
-          color={0x1a1a1a}
-          metalness={0.8}
-          roughness={0.2}
+          color={0x2a3b4c}
+          metalness={0.6}
+          roughness={0.4}
         />
       </mesh>
 
@@ -90,9 +90,9 @@ export function HolographicGrid() {
       <mesh position={[0, 25, -50]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
-          color={0x1a1a1a}
-          metalness={0.8}
-          roughness={0.2}
+          color={0x2a3b4c}
+          metalness={0.6}
+          roughness={0.4}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -100,9 +100,9 @@ export function HolographicGrid() {
       <mesh position={[-50, 25, 0]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
-          color={0x1a1a1a}
-          metalness={0.8}
-          roughness={0.2}
+          color={0x2a3b4c}
+          metalness={0.6}
+          roughness={0.4}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -110,9 +110,9 @@ export function HolographicGrid() {
       <mesh position={[50, 25, 0]} rotation={[0, -Math.PI / 2, 0]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
-          color={0x1a1a1a}
-          metalness={0.8}
-          roughness={0.2}
+          color={0x2a3b4c}
+          metalness={0.6}
+          roughness={0.4}
           side={THREE.DoubleSide}
         />
       </mesh>

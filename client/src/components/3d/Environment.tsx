@@ -20,7 +20,7 @@ export function Environment() {
     if (loaded) {
       playAmbient()
     }
-  }, [loaded])
+  }, [loaded, playAmbient])
 
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3) => {
     if (camera && controls) {
@@ -48,7 +48,7 @@ export function Environment() {
         <PerspectiveCamera 
           ref={setCamera}
           makeDefault 
-          position={[0, 5, 15]} 
+          position={[0, 8, 25]} // Moved back and up for better initial view
         />
         <OrbitControls 
           ref={setControls}
@@ -71,24 +71,24 @@ export function Environment() {
         <PowerCube 
           position={[0, 2, 0]} 
           onLoad={() => setLoaded(true)}
-          onClick={() => moveCamera(new THREE.Vector3(0, 3, 5), new THREE.Vector3(0, 2, 0))}
+          onClick={() => moveCamera(new THREE.Vector3(0, 5, 10), new THREE.Vector3(0, 2, 0))}
         />
 
         <group position={[-10, 2, -10]}>
           <Avatar 
-            onClick={() => moveCamera(new THREE.Vector3(-8, 3, -5), new THREE.Vector3(-10, 2, -10))}
+            onClick={() => moveCamera(new THREE.Vector3(-8, 5, -5), new THREE.Vector3(-10, 2, -10))}
           />
         </group>
 
         <group position={[10, 2, -10]}>
           <TechSphere 
-            onClick={() => moveCamera(new THREE.Vector3(8, 3, -5), new THREE.Vector3(10, 2, -10))}
+            onClick={() => moveCamera(new THREE.Vector3(8, 5, -5), new THREE.Vector3(10, 2, -10))}
           />
         </group>
 
         <group position={[0, 2, -15]}>
           <Cityscape 
-            onClick={() => moveCamera(new THREE.Vector3(0, 3, -10), new THREE.Vector3(0, 2, -15))}
+            onClick={() => moveCamera(new THREE.Vector3(0, 5, -10), new THREE.Vector3(0, 2, -15))}
           />
         </group>
       </Canvas>
