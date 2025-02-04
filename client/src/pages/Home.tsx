@@ -70,8 +70,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(-12, 5, -10),
-                  new THREE.Vector3(-15, 0, -15),
+                  new THREE.Vector3(18, 5, -12),
+                  new THREE.Vector3(20, 0, -15),
                   'avatar'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
@@ -86,8 +86,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(12, 8, -20),
-                  new THREE.Vector3(15, 5, -25),
+                  new THREE.Vector3(0, 8, -22),
+                  new THREE.Vector3(0, 4, -25),
                   'sphere'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
@@ -102,8 +102,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(-6, 5, -25),
-                  new THREE.Vector3(-8, 0, -30),
+                  new THREE.Vector3(-18, 5, -12),
+                  new THREE.Vector3(-20, 0, -15),
                   'city'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${

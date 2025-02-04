@@ -17,30 +17,30 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   const glowRef = useRef<Mesh>(null)
   const cablesRef = useRef<THREE.Line[]>([])
 
-  // Update the cable routes and thickness
+  // Update cable routes to match new object positions
   const cableRoutes = [
     {
-      end: new THREE.Vector3(-18, 2, -22), // Avatar
+      end: new THREE.Vector3(20, 0, -15), // Avatar
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-18, 0, 0),
-        new THREE.Vector3(-18, 2, -22)
+        new THREE.Vector3(20, 0, 0),
+        new THREE.Vector3(20, 0, -15)
       ]
     },
     {
-      end: new THREE.Vector3(12, 8, -18), // TechSphere
+      end: new THREE.Vector3(0, 4, -25), // TechSphere
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(12, 0, 0),
-        new THREE.Vector3(12, 8, -18)
+        new THREE.Vector3(0, 0, -15),
+        new THREE.Vector3(0, 4, -25)
       ]
     },
     {
-      end: new THREE.Vector3(-8, 2, -25), // Cityscape
+      end: new THREE.Vector3(-20, 0, -15), // Cityscape
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-8, 0, -15),
-        new THREE.Vector3(-8, 2, -25)
+        new THREE.Vector3(-20, 0, 0),
+        new THREE.Vector3(-20, 0, -15)
       ]
     }
   ]
@@ -77,8 +77,8 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   return (
     <group>
       {/* Power cube */}
-      <mesh 
-        ref={meshRef} 
+      <mesh
+        ref={meshRef}
         position={[position[0], position[1] + 5, position[2]]}
         onClick={onClick}
       >

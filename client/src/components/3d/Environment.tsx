@@ -41,6 +41,12 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
           enableRotate={true}
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
+          // Add camera bounds
+          minDistance={5}
+          maxDistance={40}
+          // Limit camera movement within room bounds
+          minAzimuthAngle={-Math.PI} // Full rotation allowed
+          maxAzimuthAngle={Math.PI}
         />
 
         <ambientLight intensity={0.2} />
@@ -58,23 +64,26 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
           onClick={() => onObjectSelect(new THREE.Vector3(0, 8, 15), new THREE.Vector3(0, 0, 0), 'cube')}
         />
 
-        <group position={[-18, 2, -22]}>
+        {/* Right segment */}
+        <group position={[20, 0, -15]}>
           <Avatar 
-            onClick={() => onObjectSelect(new THREE.Vector3(-15, 5, -18), new THREE.Vector3(-18, 2, -22), 'avatar')}
+            onClick={() => onObjectSelect(new THREE.Vector3(18, 5, -12), new THREE.Vector3(20, 0, -15), 'avatar')}
             isActive={activeObject === 'avatar'}
           />
         </group>
 
-        <group position={[12, 8, -18]}>
+        {/* Back segment */}
+        <group position={[0, 4, -25]}>
           <TechSphere 
-            onClick={() => onObjectSelect(new THREE.Vector3(10, 12, -15), new THREE.Vector3(12, 8, -18), 'sphere')}
+            onClick={() => onObjectSelect(new THREE.Vector3(0, 8, -22), new THREE.Vector3(0, 4, -25), 'sphere')}
             isActive={activeObject === 'sphere'}
           />
         </group>
 
-        <group position={[-8, 2, -25]}>
+        {/* Left segment */}
+        <group position={[-20, 0, -15]}>
           <Cityscape 
-            onClick={() => onObjectSelect(new THREE.Vector3(-6, 6, -22), new THREE.Vector3(-8, 2, -25), 'city')}
+            onClick={() => onObjectSelect(new THREE.Vector3(-18, 5, -12), new THREE.Vector3(-20, 0, -15), 'city')}
             isActive={activeObject === 'city'}
           />
         </group>
