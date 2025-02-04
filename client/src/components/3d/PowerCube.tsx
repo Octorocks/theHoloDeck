@@ -17,29 +17,30 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   const glowRef = useRef<Mesh>(null)
   const cablesRef = useRef<THREE.Line[]>([])
 
-  // Define cable endpoints with intermediate points for right angles
+  // Update the cable routes and thickness
   const cableRoutes = [
     {
-      end: new THREE.Vector3(-15, 0, -15), // Avatar
+      end: new THREE.Vector3(-18, 2, -22), // Avatar
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-15, 0, 0),
-        new THREE.Vector3(-15, 0, -15)
+        new THREE.Vector3(-18, 0, 0),
+        new THREE.Vector3(-18, 2, -22)
       ]
     },
     {
-      end: new THREE.Vector3(15, 0, -15), // TechSphere
+      end: new THREE.Vector3(12, 8, -18), // TechSphere
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(15, 0, 0),
-        new THREE.Vector3(15, 0, -15)
+        new THREE.Vector3(12, 0, 0),
+        new THREE.Vector3(12, 8, -18)
       ]
     },
     {
-      end: new THREE.Vector3(0, 0, -20), // Cityscape
+      end: new THREE.Vector3(-8, 2, -25), // Cityscape
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0, -20)
+        new THREE.Vector3(-8, 0, -15),
+        new THREE.Vector3(-8, 2, -25)
       ]
     }
   ]
@@ -72,6 +73,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
     })
   })
 
+  // Update the line rendering with thicker lines
   return (
     <group>
       {/* Power cube */}
@@ -121,7 +123,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
                 color={0x00ff88}
                 transparent
                 opacity={0.7}
-                linewidth={2}
+                linewidth={3}
               />
             </line>
           )

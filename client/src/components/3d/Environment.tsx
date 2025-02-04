@@ -58,23 +58,23 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
           onClick={() => onObjectSelect(new THREE.Vector3(0, 8, 15), new THREE.Vector3(0, 0, 0), 'cube')}
         />
 
-        <group position={[-15, 0, -15]}>
+        <group position={[-18, 2, -22]}>
           <Avatar 
-            onClick={() => onObjectSelect(new THREE.Vector3(-12, 5, -10), new THREE.Vector3(-15, 0, -15), 'avatar')}
+            onClick={() => onObjectSelect(new THREE.Vector3(-15, 5, -18), new THREE.Vector3(-18, 2, -22), 'avatar')}
             isActive={activeObject === 'avatar'}
           />
         </group>
 
-        <group position={[15, 5, -25]}>
+        <group position={[12, 8, -18]}>
           <TechSphere 
-            onClick={() => onObjectSelect(new THREE.Vector3(12, 8, -20), new THREE.Vector3(15, 5, -25), 'sphere')}
+            onClick={() => onObjectSelect(new THREE.Vector3(10, 12, -15), new THREE.Vector3(12, 8, -18), 'sphere')}
             isActive={activeObject === 'sphere'}
           />
         </group>
 
-        <group position={[-8, 0, -30]}>
+        <group position={[-8, 2, -25]}>
           <Cityscape 
-            onClick={() => onObjectSelect(new THREE.Vector3(-6, 5, -25), new THREE.Vector3(-8, 0, -30), 'city')}
+            onClick={() => onObjectSelect(new THREE.Vector3(-6, 6, -22), new THREE.Vector3(-8, 2, -25), 'city')}
             isActive={activeObject === 'city'}
           />
         </group>

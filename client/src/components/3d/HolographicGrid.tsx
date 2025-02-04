@@ -22,7 +22,7 @@ export function HolographicGrid() {
       {/* Floor Grid */}
       <gridHelper 
         ref={gridRef}
-        args={[100, 100, 0x00ff00, 0x00ff00]}
+        args={[60, 60, 0x00ff00, 0x00ff00]}
         position={[0, 0.01, 0]}
       >
         <meshBasicMaterial 
@@ -35,7 +35,7 @@ export function HolographicGrid() {
 
       {/* Floor Base */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-        <planeGeometry args={[100, 100]} />
+        <planeGeometry args={[60, 60]} />
         <meshStandardMaterial 
           color={0x2a3b4c}
           metalness={0.6}
@@ -44,110 +44,52 @@ export function HolographicGrid() {
       </mesh>
 
       {/* Wall Grids */}
-      {/* Back Wall */}
-      <group position={[0, 25, 50]} rotation={[Math.PI / 2, 0, Math.PI]}>
-        <gridHelper
-          ref={(el) => el && wallGridRefs.current.push(el)}
-          args={[100, 100, 0x00ff00, 0x00ff00]}
-        >
-          <meshBasicMaterial
-            attach="material"
-            color={0x00ff00}
-            transparent
-            opacity={0.2}
-          />
-        </gridHelper>
-      </group>
-
-      {/* Front Wall */}
-      <group position={[0, 25, -50]} rotation={[Math.PI / 2, 0, 0]}>
-        <gridHelper
-          ref={(el) => el && wallGridRefs.current.push(el)}
-          args={[100, 100, 0x00ff00, 0x00ff00]}
-        >
-          <meshBasicMaterial
-            attach="material"
-            color={0x00ff00}
-            transparent
-            opacity={0.2}
-          />
-        </gridHelper>
-      </group>
-
-      {/* Left Wall */}
-      <group position={[-50, 25, 0]} rotation={[Math.PI / 2, 0, Math.PI / 2]}>
-        <gridHelper
-          ref={(el) => el && wallGridRefs.current.push(el)}
-          args={[100, 100, 0x00ff00, 0x00ff00]}
-        >
-          <meshBasicMaterial
-            attach="material"
-            color={0x00ff00}
-            transparent
-            opacity={0.2}
-          />
-        </gridHelper>
-      </group>
-
-      {/* Right Wall */}
-      <group position={[50, 25, 0]} rotation={[Math.PI / 2, 0, -Math.PI / 2]}>
-        <gridHelper
-          ref={(el) => el && wallGridRefs.current.push(el)}
-          args={[100, 100, 0x00ff00, 0x00ff00]}
-        >
-          <meshBasicMaterial
-            attach="material"
-            color={0x00ff00}
-            transparent
-            opacity={0.2}
-          />
-        </gridHelper>
-      </group>
+      {[
+        // Back Wall
+        { position: [0, 20, 30], rotation: [Math.PI / 2, 0, Math.PI] },
+        // Front Wall
+        { position: [0, 20, -30], rotation: [Math.PI / 2, 0, 0] },
+        // Left Wall
+        { position: [-30, 20, 0], rotation: [Math.PI / 2, 0, Math.PI / 2] },
+        // Right Wall
+        { position: [30, 20, 0], rotation: [Math.PI / 2, 0, -Math.PI / 2] }
+      ].map((wall, index) => (
+        <group key={index} position={wall.position} rotation={wall.rotation}>
+          <gridHelper
+            ref={(el) => el && wallGridRefs.current.push(el)}
+            args={[60, 60, 0x00ff00, 0x00ff00]}
+          >
+            <meshBasicMaterial
+              attach="material"
+              color={0x00ff00}
+              transparent
+              opacity={0.2}
+            />
+          </gridHelper>
+        </group>
+      ))}
 
       {/* Wall Bases */}
-      {/* Back Wall */}
-      <mesh position={[0, 25, 50]}>
-        <planeGeometry args={[100, 50]} />
-        <meshStandardMaterial 
-          color={0x2a3b4c}
-          metalness={0.6}
-          roughness={0.4}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-
-      {/* Front Wall */}
-      <mesh position={[0, 25, -50]}>
-        <planeGeometry args={[100, 50]} />
-        <meshStandardMaterial 
-          color={0x2a3b4c}
-          metalness={0.6}
-          roughness={0.4}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-
-      {/* Left Wall */}
-      <mesh position={[-50, 25, 0]} rotation={[0, Math.PI / 2, 0]}>
-        <planeGeometry args={[100, 50]} />
-        <meshStandardMaterial 
-          color={0x2a3b4c}
-          metalness={0.6}
-          roughness={0.4}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-
-      {/* Right Wall */}
-      <mesh position={[50, 25, 0]} rotation={[0, -Math.PI / 2, 0]}>
-        <planeGeometry args={[100, 50]} />
-        <meshStandardMaterial 
-          color={0x2a3b4c}
-          metalness={0.6}
-          roughness={0.4}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+      {[
+        // Back Wall
+        { position: [0, 20, 30], rotation: [0, 0, 0] },
+        // Front Wall
+        { position: [0, 20, -30], rotation: [0, 0, 0] },
+        // Left Wall
+        { position: [-30, 20, 0], rotation: [0, Math.PI / 2, 0] },
+        // Right Wall
+        { position: [30, 20, 0], rotation: [0, -Math.PI / 2, 0] }
+      ].map((wall, index) => (
+        <mesh key={`wall-${index}`} position={wall.position} rotation={wall.rotation}>
+          <planeGeometry args={[60, 40]} />
+          <meshStandardMaterial 
+            color={0x2a3b4c}
+            metalness={0.6}
+            roughness={0.4}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      ))}
     </>
   )
 }
