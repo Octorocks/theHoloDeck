@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import { holographicMaterial } from './shaders/holographic'
+import * as THREE from 'three'
 
 interface CityscapeProps {
   onClick: () => void
@@ -19,17 +20,29 @@ export function Cityscape({ onClick }: CityscapeProps) {
 
   return (
     <group ref={groupRef} onClick={onClick}>
-      {/* Simple cityscape made of boxes */}
-      {[...Array(5)].map((_, i) => (
-        <mesh 
-          key={i}
-          position={[i - 2, Math.random() * 2, 0]}
-          scale={[0.3, 1 + Math.random() * 2, 0.3]}
-        >
-          <boxGeometry />
-          <primitive object={material} attach="material" />
-        </mesh>
-      ))}
+      {/* Chest base */}
+      <mesh>
+        <boxGeometry args={[2, 1.2, 1.4]} />
+        <meshStandardMaterial color={0x8B4513} metalness={0.3} roughness={0.7} />
+      </mesh>
+
+      {/* Chest lid */}
+      <mesh position={[0, 0.7, -0.6]} rotation={[-0.3, 0, 0]}>
+        <boxGeometry args={[2, 0.4, 1.4]} />
+        <meshStandardMaterial color={0x8B4513} metalness={0.3} roughness={0.7} />
+      </mesh>
+
+      {/* Metal bands */}
+      <mesh position={[0, 0, 0]}>
+        <boxGeometry args={[2.1, 0.1, 1.5]} />
+        <meshStandardMaterial color={0xc0c0c0} metalness={0.9} roughness={0.1} />
+      </mesh>
+
+      {/* Lock */}
+      <mesh position={[0, 0.2, 0.71]}>
+        <boxGeometry args={[0.3, 0.4, 0.1]} />
+        <primitive object={material} attach="material" />
+      </mesh>
 
       <Html position={[2, 0, 0]}>
         <div className="bg-background/90 p-4 rounded-lg w-64">

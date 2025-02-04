@@ -20,11 +20,29 @@ export function Avatar({ onClick }: AvatarProps) {
   })
 
   return (
-    <group ref={groupRef}>
-      <mesh onClick={onClick}>
-        <cylinderGeometry args={[0.5, 0.3, 2, 32]} />
-        <primitive object={material} attach="material" />
+    <group ref={groupRef} onClick={onClick}>
+      {/* Server rack base */}
+      <mesh>
+        <boxGeometry args={[1.5, 3, 0.8]} />
+        <meshStandardMaterial color={0x2a2a2a} metalness={0.8} roughness={0.2} />
       </mesh>
+
+      {/* Server units */}
+      {[...Array(5)].map((_, i) => (
+        <group key={i} position={[0, -1.2 + i * 0.5, 0.41]}>
+          {/* Server unit face */}
+          <mesh>
+            <boxGeometry args={[1.4, 0.4, 0.02]} />
+            <meshStandardMaterial color={0x333333} metalness={0.9} roughness={0.1} />
+          </mesh>
+
+          {/* Glowing status lights */}
+          <mesh position={[0.6, 0, 0.02]}>
+            <circleGeometry args={[0.05]} />
+            <primitive object={material} attach="material" />
+          </mesh>
+        </group>
+      ))}
 
       <Html position={[2, 0, 0]}>
         <div className="bg-background/90 p-4 rounded-lg w-64">
