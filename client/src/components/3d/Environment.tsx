@@ -83,16 +83,16 @@ export function Environment() {
           />
         </group>
 
-        <group position={[15, 0, -15]}>
+        <group position={[15, 5, -25]}>
           <TechSphere 
-            onClick={() => moveCamera(new THREE.Vector3(12, 5, -10), new THREE.Vector3(15, 0, -15), 'sphere')}
+            onClick={() => moveCamera(new THREE.Vector3(12, 8, -20), new THREE.Vector3(15, 5, -25), 'sphere')}
             isActive={activeObject === 'sphere'}
           />
         </group>
 
-        <group position={[0, 0, -20]}>
+        <group position={[-8, 0, -30]}>
           <Cityscape 
-            onClick={() => moveCamera(new THREE.Vector3(0, 5, -15), new THREE.Vector3(0, 0, -20), 'city')}
+            onClick={() => moveCamera(new THREE.Vector3(-6, 5, -25), new THREE.Vector3(-8, 0, -30), 'city')}
             isActive={activeObject === 'city'}
           />
         </group>

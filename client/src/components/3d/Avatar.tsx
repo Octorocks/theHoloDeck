@@ -6,15 +6,15 @@ import * as THREE from 'three'
 
 interface AvatarProps {
   onClick: () => void
+  isActive: boolean
 }
 
-export function Avatar({ onClick }: AvatarProps) {
+export function Avatar({ onClick, isActive }: AvatarProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.005
       material.uniforms.time.value = state.clock.getElapsedTime()
     }
   })
@@ -24,7 +24,7 @@ export function Avatar({ onClick }: AvatarProps) {
       {/* Server rack base */}
       <mesh>
         <boxGeometry args={[1.5, 3, 0.8]} />
-        <meshStandardMaterial color={0x2a2a2a} metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color={0x2a2a2a} metalness={0.8} roughness={0.2} emissive={0x111111} />
       </mesh>
 
       {/* Server units */}
@@ -33,7 +33,7 @@ export function Avatar({ onClick }: AvatarProps) {
           {/* Server unit face */}
           <mesh>
             <boxGeometry args={[1.4, 0.4, 0.02]} />
-            <meshStandardMaterial color={0x333333} metalness={0.9} roughness={0.1} />
+            <meshStandardMaterial color={0x333333} metalness={0.9} roughness={0.1} emissive={0x222222} />
           </mesh>
 
           {/* Glowing status lights */}
@@ -45,12 +45,14 @@ export function Avatar({ onClick }: AvatarProps) {
       ))}
 
       <Html position={[2, 0, 0]}>
-        <div className="bg-background/90 p-4 rounded-lg w-64">
+        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">About Me</h3>
-          <p className="text-sm text-muted-foreground">
-            A passionate developer with a love for creating immersive web experiences.
-            Specializing in 3D web development and interactive applications.
-          </p>
+          {isActive && (
+            <p className="text-sm text-muted-foreground">
+              A passionate developer with a love for creating immersive web experiences.
+              Specializing in 3D web development and interactive applications.
+            </p>
+          )}
         </div>
       </Html>
     </group>

@@ -44,6 +44,22 @@ export function HolographicGrid() {
       </mesh>
 
       {/* Wall Grids */}
+      {/* Back Wall */}
+      <group position={[0, 25, 50]} rotation={[Math.PI / 2, 0, Math.PI]}>
+        <gridHelper
+          ref={(el) => el && wallGridRefs.current.push(el)}
+          args={[100, 100, 0x00ff00, 0x00ff00]}
+        >
+          <meshBasicMaterial
+            attach="material"
+            color={0x00ff00}
+            transparent
+            opacity={0.2}
+          />
+        </gridHelper>
+      </group>
+
+      {/* Front Wall */}
       <group position={[0, 25, -50]} rotation={[Math.PI / 2, 0, 0]}>
         <gridHelper
           ref={(el) => el && wallGridRefs.current.push(el)}
@@ -58,6 +74,7 @@ export function HolographicGrid() {
         </gridHelper>
       </group>
 
+      {/* Left Wall */}
       <group position={[-50, 25, 0]} rotation={[Math.PI / 2, 0, Math.PI / 2]}>
         <gridHelper
           ref={(el) => el && wallGridRefs.current.push(el)}
@@ -72,6 +89,7 @@ export function HolographicGrid() {
         </gridHelper>
       </group>
 
+      {/* Right Wall */}
       <group position={[50, 25, 0]} rotation={[Math.PI / 2, 0, -Math.PI / 2]}>
         <gridHelper
           ref={(el) => el && wallGridRefs.current.push(el)}
@@ -87,6 +105,18 @@ export function HolographicGrid() {
       </group>
 
       {/* Wall Bases */}
+      {/* Back Wall */}
+      <mesh position={[0, 25, 50]}>
+        <planeGeometry args={[100, 50]} />
+        <meshStandardMaterial 
+          color={0x2a3b4c}
+          metalness={0.6}
+          roughness={0.4}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Front Wall */}
       <mesh position={[0, 25, -50]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
@@ -97,6 +127,7 @@ export function HolographicGrid() {
         />
       </mesh>
 
+      {/* Left Wall */}
       <mesh position={[-50, 25, 0]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
@@ -107,6 +138,7 @@ export function HolographicGrid() {
         />
       </mesh>
 
+      {/* Right Wall */}
       <mesh position={[50, 25, 0]} rotation={[0, -Math.PI / 2, 0]}>
         <planeGeometry args={[100, 50]} />
         <meshStandardMaterial 
