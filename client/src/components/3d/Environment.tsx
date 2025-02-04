@@ -15,6 +15,7 @@ export function Environment() {
   const { playAmbient } = useAudio()
   const [camera, setCamera] = useState<THREE.PerspectiveCamera | null>(null)
   const [controls, setControls] = useState<any>(null)
+  const [activeObject, setActiveObject] = useState<string | null>(null)
 
   useEffect(() => {
     if (loaded) {
@@ -22,8 +23,9 @@ export function Environment() {
     }
   }, [loaded, playAmbient])
 
-  const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3) => {
+  const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
     if (camera && controls) {
+      setActiveObject(objectId)
       gsap.to(camera.position, {
         x: position.x,
         y: position.y,
@@ -48,7 +50,7 @@ export function Environment() {
         <PerspectiveCamera 
           ref={setCamera}
           makeDefault 
-          position={[0, 8, 25]} // Moved back and up for better initial view
+          position={[0, 15, 35]} // Higher and further back for better overview
         />
         <OrbitControls 
           ref={setControls}
@@ -69,26 +71,29 @@ export function Environment() {
 
         <HolographicGrid />
         <PowerCube 
-          position={[0, 2, 0]} 
+          position={[0, 0, 0]} 
           onLoad={() => setLoaded(true)}
-          onClick={() => moveCamera(new THREE.Vector3(0, 5, 10), new THREE.Vector3(0, 2, 0))}
+          onClick={() => moveCamera(new THREE.Vector3(0, 8, 15), new THREE.Vector3(0, 0, 0), 'cube')}
         />
 
-        <group position={[-10, 2, -10]}>
+        <group position={[-15, 0, -15]}>
           <Avatar 
-            onClick={() => moveCamera(new THREE.Vector3(-8, 5, -5), new THREE.Vector3(-10, 2, -10))}
+            onClick={() => moveCamera(new THREE.Vector3(-12, 5, -10), new THREE.Vector3(-15, 0, -15), 'avatar')}
+            isActive={activeObject === 'avatar'}
           />
         </group>
 
-        <group position={[10, 2, -10]}>
+        <group position={[15, 0, -15]}>
           <TechSphere 
-            onClick={() => moveCamera(new THREE.Vector3(8, 5, -5), new THREE.Vector3(10, 2, -10))}
+            onClick={() => moveCamera(new THREE.Vector3(12, 5, -10), new THREE.Vector3(15, 0, -15), 'sphere')}
+            isActive={activeObject === 'sphere'}
           />
         </group>
 
-        <group position={[0, 2, -15]}>
+        <group position={[0, 0, -20]}>
           <Cityscape 
-            onClick={() => moveCamera(new THREE.Vector3(0, 5, -10), new THREE.Vector3(0, 2, -15))}
+            onClick={() => moveCamera(new THREE.Vector3(0, 5, -15), new THREE.Vector3(0, 0, -20), 'city')}
+            isActive={activeObject === 'city'}
           />
         </group>
       </Canvas>
