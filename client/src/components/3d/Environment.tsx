@@ -5,6 +5,7 @@ import { HolographicGrid } from './HolographicGrid'
 import { Avatar } from './Avatar'
 import { TechSphere } from './TechSphere'
 import { Cityscape } from './Cityscape'
+import { HoloTerminal } from './Terminal'
 import { useEffect, useState } from 'react' // React hooks for state and effects
 import { useAudio } from '@/hooks/use-audio' // Custom hook for handling audio playback
 import * as THREE from 'three' // Import Three.js for 3D vector calculations
@@ -30,9 +31,9 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
   }, [loaded, playAmbient])
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen no-select">
       <Canvas shadows gl={{ alpha: false }} onCreated={({ gl }) => {
-        gl.setClearColor('#000000')
+        gl.setClearColor('#333333')
       }}>
         
         {/* Set up the main camera */}
@@ -97,10 +98,26 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         </group>
 
         {/* Left segment - Cityscape */}
-        <group position={[-20, 1, -15]}>
+        <group position={[-15, 1, -10]}>
           <Cityscape 
-            onClick={() => onObjectSelect(new THREE.Vector3(-18, 5, -12), new THREE.Vector3(-20, 0, -15), 'city')}
+            onClick={() => onObjectSelect(
+              new THREE.Vector3(-10, 5, -5),  // Camera position: moved inward for better view
+              new THREE.Vector3(-15, 1, -10),  // Looking at the object's position
+              'city'
+            )}
             isActive={activeObject === 'city'}
+          />
+        </group>
+
+        {/* HoloTerminal */}
+        <group position={[15, 0, -15]}>
+          <HoloTerminal 
+            onClick={() => onObjectSelect(
+              new THREE.Vector3(-8, 5, 6),
+              new THREE.Vector3(-15, 0, 10),
+              'terminal'
+            )}
+            isActive={activeObject === 'terminal'}
           />
         </group>
 

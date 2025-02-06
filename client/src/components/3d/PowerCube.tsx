@@ -20,11 +20,11 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   // Update cable routes to match new object positions
   const cableRoutes = [
     {
-      end: new THREE.Vector3(20, 0, -15), // Avatar
+      end: new THREE.Vector3(15, 0, 15), // Updated Avatar position
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(20, 0, 0),
-        new THREE.Vector3(20, 0, -15)
+        new THREE.Vector3(15, 0, 0),
+        new THREE.Vector3(15, 0, 15)
       ]
     },
     {
@@ -40,8 +40,17 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
       points: [
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(-10, 0, 0),
-        new THREE.Vector3(-20, 0, -15)
+        new THREE.Vector3(-10, 0, -10),
+        new THREE.Vector3(-14, 0, -10)
       ]
+    },
+  {
+    end: new THREE.Vector3(-30, 0, 25), // Terminal
+    points: [
+      new THREE.Vector3(0, 0, 0),
+      new THREE.Vector3(-7, 0, 10),
+      new THREE.Vector3(-16, 0, 10)
+  ]
     }
   ]
 

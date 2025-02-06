@@ -84,8 +84,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(18, 5, -12),
-                  new THREE.Vector3(20, 0, -15),
+                  new THREE.Vector3(10, 8, 10),
+                  new THREE.Vector3(15, 0, 15),
                   'avatar'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
@@ -120,8 +120,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(-18, 5, -12),
-                  new THREE.Vector3(-20, 0, -15),
+                  new THREE.Vector3(-10, 5, -5),
+                  new THREE.Vector3(-15, 1, -10),
                   'city'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
@@ -131,6 +131,24 @@ export default function Home() {
                 }`}
               >
                 Experience
+              </button>
+            </li>
+
+            {/* Button to move the camera to the "Terminal" section */}
+            <li>
+              <button
+                onClick={() => moveCamera(
+                  new THREE.Vector3(-8, 5, 6),  // Camera position: inward for viewing outward
+                  new THREE.Vector3(-15, 0, 10),  // Look at terminal position
+                  'Projects'
+                )}
+                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
+                  activeObject === 'terminal'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'hover:bg-muted'
+                }`}
+              >
+                Projects
               </button>
             </li>
 
