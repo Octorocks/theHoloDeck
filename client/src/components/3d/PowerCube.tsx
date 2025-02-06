@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
-import { Mesh, Line } from 'three'
-import { MeshLine, MeshLineMaterial } from 'three.meshline'
+import { Mesh } from 'three'
 import { holographicMaterial } from './shaders/holographic'
 import * as THREE from 'three'
 
@@ -16,7 +15,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   const meshRef = useRef<Mesh>(null)
   const material = holographicMaterial()
   const glowRef = useRef<Mesh>(null)
-  const cablesRef = useRef<THREE.Line[]>([])
+  const cablesRef = useRef<THREE.Mesh[]>([])
 
   // Update cable routes to match new object positions
   const cableRoutes = [
@@ -33,14 +32,14 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
       points: [
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(0, 0, -15),
-        new THREE.Vector3(0, 4, -25)
+        new THREE.Vector3(0, 3, -15)
       ]
     },
     {
       end: new THREE.Vector3(-20, 0, -15), // Cityscape
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-20, 0, 0),
+        new THREE.Vector3(-10, 0, 0),
         new THREE.Vector3(-20, 0, -15)
       ]
     }
@@ -67,14 +66,14 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
 
     // Animate energy pulse along cables
     cablesRef.current.forEach((cable, index) => {
-      if (cable.material instanceof THREE.LineBasicMaterial) {
+      if (cable.material instanceof THREE.MeshStandardMaterial) {
         const pulseOffset = (time + index * 0.3) % 1
         cable.material.opacity = Math.max(0.3, Math.sin(pulseOffset * Math.PI))
       }
     })
   })
 
-  // Update the line rendering with thicker lines
+  // Update the line rendering with thicker lines using TubeGeometry
   return (
     <group>
       {/* Power cube */}
@@ -87,7 +86,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
         <primitive object={material} attach="material" />
       </mesh>
 
-      {/* Energy cables */}
+      {/* Energy cables using TubeGeometry */}
       {cableRoutes.map((route, index) => (
         route.points.map((point, pointIndex) => {
           if (pointIndex === route.points.length - 1) return null
@@ -105,30 +104,24 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
             ))
           }
 
+          const curve = new THREE.CatmullRomCurve3(points) // Create a smooth curve through points
+
           return (
-            <line
+            <mesh
               key={`${index}-${pointIndex}`}
               ref={(el) => el && (cablesRef.current.push(el))}
             >
-              <bufferGeometry
-                attach="geometry"
-                attributes={{
-                  position: new THREE.Float32BufferAttribute(
-                    points.flatMap(p => [p.x, p.y, p.z]),
-                    3
-                  )
-                }}
+              <tubeGeometry
+                args={[curve, 20, 0.05, 8, false]} // TubeGeometry with radius 0.2 (thickness)
               />
-              <lineBasicMaterial
+              <meshStandardMaterial
                 attach="material"
-                color={0x00ff88}
+                color={0xffffff}
                 transparent
                 opacity={0.7}
-                linewidth={30}
               />
-            </line>
+            </mesh>
           )
-          
         })
       ))}
     </group>

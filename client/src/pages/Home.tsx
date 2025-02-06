@@ -102,8 +102,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(0, 8, -22),
-                  new THREE.Vector3(0, 4, -25),
+                  new THREE.Vector3(0, 8, -9), //22
+                  new THREE.Vector3(0, 4, -15), //25
                   'sphere'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
