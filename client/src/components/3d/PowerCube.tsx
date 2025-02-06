@@ -49,7 +49,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
     if (meshRef.current) {
       gsap.to(meshRef.current.position, {
         y: position[1],
-        duration: 2,
+        duration: 4,
         ease: "power2.inOut",
         onComplete: onLoad
       })
@@ -76,15 +76,32 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
   // Update the line rendering with thicker lines using TubeGeometry
   return (
     <group>
-      {/* Power cube */}
-      <mesh
-        ref={meshRef} 
-        position={[position[0], position[1] + 5, position[2]]}
-        onClick={onClick}
-      >
-        <boxGeometry args={[1, 1, 1]} />
-        <primitive object={material} attach="material" />
-      </mesh>
+      {/* Power cube with glow effect */}
+      <>
+        <mesh
+          ref={meshRef} 
+          position={[position[0], position[1] + 15, position[2]]}
+          onClick={onClick}
+        >
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial 
+            color={0x00ffff}
+            emissive={0x00ffff}
+            emissiveIntensity={0.8}
+          />
+        </mesh>
+        <mesh
+          position={[position[0], position[1] + 15, position[2]]}
+          scale={0.8}
+        >
+          <boxGeometry args={[1, 1, 1]} />
+          <meshBasicMaterial 
+            color={0x00ffff}
+            transparent
+            opacity={0.3}
+          />
+        </mesh>
+      </>
 
       {/* Energy cables using TubeGeometry */}
       {cableRoutes.map((route, index) => (

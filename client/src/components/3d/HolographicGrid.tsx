@@ -1,28 +1,16 @@
 import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 export function HolographicGrid() {
   const gridRef = useRef<THREE.GridHelper>(null)
   const wallGridRefs = useRef<THREE.GridHelper[]>([])
 
-  useFrame((state) => {
-    if (gridRef.current) {
-      gridRef.current.material.opacity = Math.sin(state.clock.getElapsedTime()) * 0.2 + 0.3
-    }
-    wallGridRefs.current.forEach(grid => {
-      if (grid) {
-        grid.material.opacity = Math.sin(state.clock.getElapsedTime()) * 0.2 + 0.3
-      }
-    })
-  })
-
   return (
     <>
       {/* Floor Grid */}
       <gridHelper 
         ref={gridRef}
-        args={[60, 60, 0x00ff00, 0x00ff00]}
+        args={[50, 50, 0x00ff00, 0x00ff00]}
         position={[0, 0.01, 0]}
       >
         <meshBasicMaterial 
@@ -30,6 +18,7 @@ export function HolographicGrid() {
           color={0x00ff00} 
           transparent
           opacity={0.2}
+          depthWrite={false}
         />
       </gridHelper>
 
@@ -37,7 +26,7 @@ export function HolographicGrid() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[60, 60]} />
         <meshStandardMaterial 
-          color={0x2a3b4c}
+          color={0x333333}
           metalness={0.6}
           roughness={0.4}
         />
@@ -46,24 +35,29 @@ export function HolographicGrid() {
       {/* Wall Grids */}
       {[
         // Back Wall
-        { position: [0, 20, 30], rotation: [Math.PI / 2, 0, Math.PI] },
+        { position: [0, 20, 25], rotation: [Math.PI / 2, 0, Math.PI] },
         // Front Wall
-        { position: [0, 20, -30], rotation: [Math.PI / 2, 0, 0] },
+        { position: [0, 20, -25], rotation: [Math.PI / 2, 0, 0] },
         // Left Wall
-        { position: [-30, 20, 0], rotation: [Math.PI / 2, 0, Math.PI / 2] },
+        { position: [-25, 20, 0], rotation: [Math.PI / 2, 0, Math.PI / 2] },
         // Right Wall
-        { position: [30, 20, 0], rotation: [Math.PI / 2, 0, -Math.PI / 2] }
+        { position: [25, 20, 0], rotation: [Math.PI / 2, 0, -Math.PI / 2] }
       ].map((wall, index) => (
-        <group key={index} position={wall.position} rotation={wall.rotation}>
+        <group 
+          key={index} 
+          position={[wall.position[0], wall.position[1], wall.position[2]]} 
+          rotation={[wall.rotation[0], wall.rotation[1], wall.rotation[2]]}
+        >
           <gridHelper
             ref={(el) => el && wallGridRefs.current.push(el)}
-            args={[60, 60, 0x00ff00, 0x00ff00]}
+            args={[50, 50, 0x00ff00, 0x00ff00]}
           >
             <meshBasicMaterial
               attach="material"
               color={0x00ff00}
               transparent
               opacity={0.2}
+              depthWrite={false}
             />
           </gridHelper>
         </group>
@@ -72,18 +66,22 @@ export function HolographicGrid() {
       {/* Wall Bases */}
       {[
         // Back Wall
-        { position: [0, 20, 30], rotation: [0, 0, 0] },
+        { position: [0, 20, 25], rotation: [0, 0, 0] },
         // Front Wall
-        { position: [0, 20, -30], rotation: [0, 0, 0] },
+        { position: [0, 20, -25], rotation: [0, 0, 0] },
         // Left Wall
-        { position: [-30, 20, 0], rotation: [0, Math.PI / 2, 0] },
+        { position: [-25, 20, 0], rotation: [0, Math.PI / 2, 0] },
         // Right Wall
-        { position: [30, 20, 0], rotation: [0, -Math.PI / 2, 0] }
+        { position: [25, 20, 0], rotation: [0, -Math.PI / 2, 0] }
       ].map((wall, index) => (
-        <mesh key={`wall-${index}`} position={wall.position} rotation={wall.rotation}>
-          <planeGeometry args={[60, 40]} />
+        <mesh 
+          key={`wall-${index}`} 
+          position={[wall.position[0], wall.position[1], wall.position[2]]} 
+          rotation={[wall.rotation[0], wall.rotation[1], wall.rotation[2]]}
+        >
+          <planeGeometry args={[50, 40]} />
           <meshStandardMaterial 
-            color={0x2a3b4c}
+            color={0x333333}
             metalness={0.6}
             roughness={0.4}
             side={THREE.DoubleSide}

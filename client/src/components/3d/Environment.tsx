@@ -30,8 +30,10 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
   }, [loaded, playAmbient])
 
   return (
-    <div className="w-full h-screen"> {/* Full-screen container */}
-      <Canvas shadows> {/* Main 3D rendering canvas */}
+    <div className="w-full h-screen">
+      <Canvas shadows gl={{ alpha: false }} onCreated={({ gl }) => {
+        gl.setClearColor('#000000')
+      }}>
         
         {/* Set up the main camera */}
         <PerspectiveCamera 

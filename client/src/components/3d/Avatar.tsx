@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+// import { useFrame } from '@react-three/fiber'
 import { holographicMaterial } from './shaders/holographic'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
@@ -13,14 +13,10 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
 
-  useFrame((state) => {
-    if (groupRef.current) {
-      material.uniforms.time.value = state.clock.getElapsedTime()
-    }
-  })
+  material.uniforms.time.value = 1.0;
 
   return (
-    <group ref={groupRef} onClick={onClick} position={[0, 1, 0]}>
+    <group ref={groupRef} onClick={onClick} position={[0, 1.5, 0]} rotation={[0, -Math.PI * 40/180, 0]}>
       {/* Server rack base */}
       <mesh>
         <boxGeometry args={[1.5, 3, 0.8]} />
