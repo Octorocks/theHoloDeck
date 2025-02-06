@@ -20,7 +20,7 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
   })
 
   return (
-    <group ref={groupRef} onClick={onClick}>
+    <group ref={groupRef} onClick={onClick} position={[0, 1, 0]}>
       {/* Server rack base */}
       <mesh>
         <boxGeometry args={[1.5, 3, 0.8]} />

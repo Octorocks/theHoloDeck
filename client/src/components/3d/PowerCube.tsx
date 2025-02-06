@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { gsap } from 'gsap'
 import { Mesh, Line } from 'three'
+import { MeshLine, MeshLineMaterial } from 'three.meshline'
 import { holographicMaterial } from './shaders/holographic'
 import * as THREE from 'three'
 
@@ -78,7 +79,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
     <group>
       {/* Power cube */}
       <mesh
-        ref={meshRef}
+        ref={meshRef} 
         position={[position[0], position[1] + 5, position[2]]}
         onClick={onClick}
       >
@@ -123,10 +124,11 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
                 color={0x00ff88}
                 transparent
                 opacity={0.7}
-                linewidth={3}
+                linewidth={30}
               />
             </line>
           )
+          
         })
       ))}
     </group>
