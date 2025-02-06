@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
+import { useFrame } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -9,6 +10,22 @@ interface TechSphereProps {
 
 export function TechSphere({ onClick, isActive }: TechSphereProps) {
   const sphereRef = useRef<THREE.Mesh>(null)
+  const [showText, setShowText] = useState(false)
+
+  useEffect(() => {
+    if (isActive) {
+      const timer = setTimeout(() => setShowText(true), 2100)
+      return () => clearTimeout(timer)
+    } else {
+      setShowText(false)
+    }
+  }, [isActive])
+
+  useFrame(() => {
+    if (sphereRef.current) {
+      sphereRef.current.rotation.y += 0.0015
+    }
+  })
 
   return (
     <group>
@@ -26,14 +43,11 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
       <Html position={[2, 0, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">Skills</h3>
-          {isActive && (
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>React & Three.js</li>
-              <li>TypeScript</li>
-              <li>Node.js</li>
-              <li>WebGL & GLSL</li>
-            </ul>
-          )}
+          <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
+            <p className="text-sm text-muted-foreground">
+              Proficient in modern web technologies including React, Three.js, and TypeScript.
+            </p>
+          </div>
         </div>
       </Html>
     </group>

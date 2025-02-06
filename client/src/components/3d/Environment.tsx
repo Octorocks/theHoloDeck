@@ -39,14 +39,14 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <PerspectiveCamera 
           ref={onCameraReady} // Store reference to the camera
           makeDefault // Make this the default camera
-          position={[0, 15, 25]} // Initial camera position
+          position={[0, 8, 18]} // Initial camera position
         />
         
         {/* Enable user control over the camera (click & drag, zoom, pan) */}
         <OrbitControls 
           ref={onControlsReady} // Store reference to controls
           enablePan={false} // deny panning
-          enableZoom={true} // Allow zooming
+          enableZoom={false} // Allow zooming
           enableRotate={true} // deny rotation
           minPolarAngle={Math.PI / 4} // Restrict downward tilt
           maxPolarAngle={Math.PI / 2} // Restrict upward tilt
@@ -77,10 +77,14 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         />
 
         {/* Right segment - Avatar */}
-        <group position={[20, 0, -15]}>
+        <group position={[15, 0, 15]}>
           <Avatar 
-            onClick={() => onObjectSelect(new THREE.Vector3(18, 5, -12), new THREE.Vector3(20, 0, -15), 'avatar')}
-            isActive={activeObject === 'avatar'} // Highlight if active
+            onClick={() => onObjectSelect(
+              new THREE.Vector3(10, 8, 10),  // Camera position: moved inward towards center
+              new THREE.Vector3(15, 0, 15),  // Still looking at the object's position
+              'avatar'
+            )}
+            isActive={activeObject === 'avatar'}
           />
         </group>
 

@@ -1,10 +1,11 @@
 import { Howl } from 'howler'
 import { useCallback } from 'react'
+import chimpoTrance from '../assets/custom bop.mp3'
 
 const ambient = new Howl({
-  src: ['https://cdn.jsdelivr.net/gh/airtone/free-sound-effects@master/dark-ambient-2.mp3'],
+  src: [chimpoTrance],
   loop: true,
-  volume: 0.3
+  volume: 0.05
 })
 
 export function useAudio() {
