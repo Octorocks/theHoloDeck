@@ -18,6 +18,7 @@ The HoloDeck Project is an interactive 3D portfolio application that showcases v
   - Three.js
   - React Three Fiber
   - Tailwind CSS
+  - TypeScript
   - React Router
 
 - **Backend**: 
