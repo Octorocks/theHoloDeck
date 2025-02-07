@@ -15,7 +15,7 @@ export default function Home() {
   // State to store the camera controls (like OrbitControls)
   const [controls, setControls] = useState<any>(null)
 
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
   const { playAmbient, stopAmbient } = useAudio()
 
   // Function to smoothly move the camera to a new position and focus on a target
