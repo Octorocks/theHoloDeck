@@ -15,9 +15,8 @@ export default function Home() {
   // State to store the camera controls (like OrbitControls)
   const [controls, setControls] = useState<any>(null)
 
-  const [isPlaying, setIsPlaying] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
   const { playAmbient, stopAmbient } = useAudio()
-  playAmbient() // spin that shit
 
   // Function to smoothly move the camera to a new position and focus on a target
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
@@ -80,7 +79,7 @@ export default function Home() {
           </button>
         </div>
         <p className="text-sm text-muted-foreground">
-          Navigate using mouse/touch controls
+          Why not switch on the funky music? (written and recorded by me)
         </p>
       </div>
 
