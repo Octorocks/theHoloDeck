@@ -13,7 +13,7 @@ interface HoloTerminalProps {
 interface Project {
   name: string;
   tech: string;
-  description: string;
+  description: React.ReactNode;
   link?: string;
 }
 
@@ -41,7 +41,11 @@ const projects: Project[] = [
   { 
     name: "RHCP Ranker", 
     tech: "Node.js, JavaScript, Custom ELO algorithm",
-    description: "Ranks every song on the RHCP discography by assigning an ELO rating, and storing in the backend. The frontend accepts user input for which of two songs is best, and processes the updated ELO."
+    description: (
+      <>
+        Ranks every <a href="https://github.com/Octorocks/RHCP-ELO-rank-project" target="_blank" rel="noopener noreferrer">RHCP song</a> by assigning and storing an ELO rating based on front end user input.
+      </>
+    )
   },
   { 
     name: "Server Project", 

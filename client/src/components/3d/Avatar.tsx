@@ -14,7 +14,7 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
   const material = holographicMaterial()
   const [showText, setShowText] = useState(false)
   const [displayedText, setDisplayedText] = useState('')
-  const fullText = `Tech obsessed and a massive nerd. I'm transitioning to a dedicated software development career, building on five years of impactful CRM automation work.`
+  const fullText = `Tech obsessed and a huge nerd. I'm transitioning to a dedicated software development career, building on five years of impactful CRM automation work.`
 
   material.uniforms.time.value = 1.0;
 
@@ -31,7 +31,7 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
   useEffect(() => {
     if (showText) {
       let index = -1 // not to self, don't write such crap code. That way, you won't have to start the index at -1 
-      const typingSpeed = 25 
+      const typingSpeed = 15 
       const interval = setInterval(() => {
         setDisplayedText((prev) => prev + fullText.charAt(index))
         index++

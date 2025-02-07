@@ -56,11 +56,15 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
             <div className="space-y-4">
               <div>
                 <h4 className="text-lg text-cyan-400 font-semibold">Frontend</h4>
-                <p className="text-sm text-muted-foreground">HTML/CSS, TypeScript, JavaScript, MS Paint (Don't @ me)</p>
+                <p className="text-sm text-muted-foreground">HTML/CSS, TypeScript, JavaScript, HubL, JinJava MS Paint (Don't @ me)</p>
               </div>
               <div>
                 <h4 className="text-lg text-fuchsia-400 font-semibold">Backend</h4>
-                <p className="text-sm text-muted-foreground">Node.js, CRM Automation, SQL</p>
+                <p className="text-sm text-muted-foreground">Node.js, SQL, Linux</p>
+              </div>
+              <div>
+                <h4 className="text-lg text-green-400 font-semibold">Tools</h4>
+                <p className="text-sm text-muted-foreground">Hubspot, SaaSquatch, Aircall Integrations, Zapier, Gong, Hiya, Segment, Zendesk</p>
               </div>
               <div>
                 <h4 className="text-lg text-yellow-400 font-semibold">Awards</h4>
