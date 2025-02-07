@@ -149,7 +149,7 @@ export function HoloTerminal({
       {/* Holographic text */}
       <Text
         position={[0, 1.5, 0.1]}
-        fontSize={0.1}
+        fontSize={0.8}
         color={0x00ff00}
         anchorX="center"
         anchorY="middle"
