@@ -10,13 +10,45 @@ interface HoloTerminalProps {
   rotation?: [number, number, number]
 }
 
-const projects = [
-  { name: "Portfolio", tech: "Next.js, Three.js" },
-  { name: "AI Chat", tech: "OpenAI, React" },
-  { name: "Task Manager", tech: "TypeScript, Redux" },
-  { name: "Weather App", tech: "React, API" },
-  { name: "Blog Platform", tech: "Next.js, MDX" },
-  { name: "Game Engine", tech: "Three.js, WebGL" }
+interface Project {
+  name: string;
+  tech: string;
+  description: string;
+  link?: string;
+}
+
+const projects: Project[] = [
+  { 
+    name: "AutoResponder",
+    tech: "Node.js, REST APIs, JavaScript, MongoDB",
+    description: "Dynamic enquiry autoresponder with real-time API processing for improved user engagement."
+  },
+  { 
+    name: "Pipeline Tool",
+    tech: "Node.js, JavaScript, Hubspot, Regexp",
+    description: "Venue account management pipeline. Designed for scalability, it eliminated key data processing bottlenecks"
+  },
+  { 
+    name: "Referral System", 
+    tech: "SaaSquatch, Hubspot",
+    description: "High-converting referral system for the UK's top online mortgage broker. Optimised for user-engagement and retention."
+  },
+  { 
+    name: "DnD Roller", 
+    tech: "Python",
+    description: "Personal project: an initial DnD stat roller, guarantees all players a certain position on the bell curve distibution of 3d6 rolls. A massive time saver."
+  },
+  { 
+    name: "RHCP Ranker", 
+    tech: "Node.js, JavaScript, Custom ELO algorithm",
+    description: "Ranks every song on the RHCP discography by assigning an ELO rating, and storing in the backend. The frontend accepts user input for which of two songs is best, and processes the updated ELO."
+  },
+  { 
+    name: "Server Project", 
+    tech: "Node.js, Linux, Custom APIs, Cloudflare proxy, JavaScript",
+    description: "This site is hosted entirely on a self-coded server, which is currently sat on my desk. Iterate headlessly via command line linux, don't get me started on the reverse proxy. "
+
+  }
 ]
 
 export function HoloTerminal({ 
@@ -26,12 +58,13 @@ export function HoloTerminal({
   rotation = [0, Math.PI * 2/3, 0]  // Default 120-degree rotation
 }: HoloTerminalProps) {
   const groupRef = useRef<THREE.Group>(null)
-  const [cardStates, setCardStates] = useState(projects.map(() => ({ scale: 0, opacity: 0 })))
+  const [cardStates, setCardStates] = useState(projects.map(() => ({ scale: 0, opacity: 1 })))
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   useFrame(() => {
     cardStates.forEach((state, index) => {
-      if (groupRef.current?.children[index + 3]) { // +3 to skip terminal meshes
-        const card = groupRef.current.children[index + 3]
+      if (groupRef.current?.children[index + 4]) { // +4 to skip terminal meshes and Html element
+        const card = groupRef.current.children[index + 4]
         card.scale.lerp(new THREE.Vector3(state.scale, state.scale, state.scale), 0.1)
         const mesh = card as THREE.Mesh
         if (mesh.material && mesh.material instanceof THREE.Material) {
@@ -47,7 +80,7 @@ export function HoloTerminal({
       projects.forEach((_, index) => {
         setTimeout(() => {
           setCardStates(prev => prev.map((state, i) => 
-            i === index ? { scale: 1, opacity: 0.8 } : state  // Increased opacity
+            i === index ? { scale: 1, opacity: 0.8 } : state
           ))
         }, index * 200)
       })
@@ -56,6 +89,26 @@ export function HoloTerminal({
     }
   }, [isActive])
 
+  // Add effect for selection
+  useEffect(() => {
+    if (selectedProject !== null) {
+      setCardStates(prev => prev.map((state, index) => 
+      index === selectedProject 
+        ? { scale: 1, opacity: 0.8 }
+        : { scale: 0, opacity: 0 }
+    ))
+    } else if (isActive) {
+      // Restore all cards when deselecting
+      projects.forEach((_, index) => {
+        setTimeout(() => {
+          setCardStates(prev => prev.map((state, i) => 
+            i === index ? { scale: 1, opacity: 0.8 } : state
+          ))
+        }, index * 200)
+      })
+    }
+  }, [selectedProject, isActive])
+
   return (
     <group 
       ref={groupRef} 
@@ -63,8 +116,16 @@ export function HoloTerminal({
       position={position}
       rotation={rotation}
     >
-      {/* Main terminal screen */}
-      <mesh position={[0, 1.5, 0]}>
+      {/* Main terminal screen with click handler */}
+      <mesh 
+        position={[0, 1.5, 0]}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (selectedProject !== null) {
+            setSelectedProject(null);  // Clear selection to go back
+          }
+        }}
+      >
         <boxGeometry args={[3, 1.3, 0.1]} />
         <meshStandardMaterial 
           color={0x000000}
@@ -93,13 +154,29 @@ export function HoloTerminal({
         anchorX="center"
         anchorY="middle"
       >
-        {isActive ? '> TERMINAL ACTIVE_' : '> READY_'}
+        {selectedProject !== null ? '< BACK_' : isActive ? '> TERMINAL ACTIVE_' : '> READY_'}
       </Text>
 
+      {/* Project details panel */}
       <Html position={[2, 0, 0]}>
-        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
-          <h3 className="text-xl font-bold mb-2">Terminal</h3>
-          <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
+          isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
+        }`}>
+          <h3 className="text-xl font-bold mb-2">Projects</h3>
+          <div className={`overflow-hidden transition-all duration-500 ${
+            selectedProject !== null ? 'max-h-48' : 'max-h-24'
+          } opacity-100`}>
+            {selectedProject !== null ? (
+              <>
+                <h4 className="text-lg text-primary">{projects[selectedProject].name}</h4>
+                <p className="text-sm text-muted-foreground mt-1">{projects[selectedProject].tech}</p>
+                <p className="text-sm mt-2">{projects[selectedProject].description}</p>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                
+              </p>
+            )}
           </div>
         </div>
       </Html>
@@ -115,26 +192,25 @@ export function HoloTerminal({
           position = [3.5, 1.8 + ((index - 4) * 1.5), 0];
         }
 
-        // Holographic color palette
-        const colors = [
-          '#00ffff',  // Cyan
-          '#ff00ff',  // Magenta
-          '#00ff80',  // Mint
-          '#4040ff',  // Blue
-          '#ff8000',  // Orange
-          '#8000ff'   // Purple
-        ];
-
         return (
           <group
             key={project.name}
             position={position}
             scale={0}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProject(index);
+            }}
           >
             <mesh>
               <planeGeometry args={[1.5, 0.9]} />
-              <meshBasicMaterial 
-                color={colors[index]}
+              <meshBasicMaterial  // Changed to BasicMaterial
+                color={index === 0 ? 'cyan' : 
+                       index === 1 ? 'magenta' : 
+                       index === 2 ? '#00ff80' : 
+                       index === 3 ? '#4040ff' : 
+                       index === 4 ? '#ff8000' : 
+                       '#8000ff'}
                 transparent
                 opacity={0}
                 side={THREE.DoubleSide}

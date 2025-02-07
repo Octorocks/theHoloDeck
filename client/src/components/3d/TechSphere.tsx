@@ -41,12 +41,27 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
       </mesh>
 
       <Html position={[2, 0, 0]}>
-        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
+        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
+          isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
+        }`}>
           <h3 className="text-xl font-bold mb-2">Skills</h3>
-          <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
-            <p className="text-sm text-muted-foreground">
-              Proficient in modern web technologies including React, Three.js, and TypeScript.
-            </p>
+          <div className={`overflow-hidden transition-all duration-500 ${
+            isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-lg text-cyan-400 font-semibold">Frontend</h4>
+                <p className="text-sm text-muted-foreground">HTML, CSS, JavaScript, TypeScript, MS Paint (don't @ me)</p>
+              </div>
+              <div>
+                <h4 className="text-lg text-fuchsia-400 font-semibold">Backend</h4>
+                <p className="text-sm text-muted-foreground">Node.js, Custom APIs, SQL, Hubspot Workflows</p>
+              </div>
+              <div>
+                <h4 className="text-lg text-yellow-400 font-semibold">Awards</h4>
+                <p className="text-sm text-muted-foreground">Cultural Champion, Best Ideator, MVP of Operations</p>
+              </div>
+            </div>
           </div>
         </div>
       </Html>

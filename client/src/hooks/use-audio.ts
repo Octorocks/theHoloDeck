@@ -1,6 +1,6 @@
 import { Howl } from 'howler'
 import { useCallback } from 'react'
-import chimpoTrance from '../assets/custom bop.mp3'
+import chimpoTrance from '../assets/eddBSiteLoop.mp3'
 
 const ambient = new Howl({
   src: [chimpoTrance],
