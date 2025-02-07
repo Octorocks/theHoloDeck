@@ -2,6 +2,8 @@ import { Environment } from '@/components/3d/Environment' // Import the 3D envir
 import { useState, useCallback } from 'react' // Import React hooks for state and memoized functions
 import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
+import { Music, Volume2, VolumeX } from 'lucide-react' // Import icons
+import { useAudio } from '../hooks/use-audio'
 
 export default function Home() {
   // State to track the currently active object
@@ -12,6 +14,9 @@ export default function Home() {
 
   // State to store the camera controls (like OrbitControls)
   const [controls, setControls] = useState<any>(null)
+
+  const [isPlaying, setIsPlaying] = useState(false)
+  const { playAmbient, stopAmbient } = useAudio()
 
   // Function to smoothly move the camera to a new position and focus on a target
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
@@ -38,6 +43,15 @@ export default function Home() {
     }
   }, [camera, controls]) // Dependencies: function updates when camera or controls change
 
+  const toggleMusic = useCallback(() => {
+    if (isPlaying) {
+      stopAmbient()
+    } else {
+      playAmbient()
+    }
+    setIsPlaying(!isPlaying)
+  }, [isPlaying, playAmbient, stopAmbient])
+
   return (
     <div className="w-full h-screen overflow-hidden bg-black">
       {/* 3D Environment Component */}
@@ -50,7 +64,20 @@ export default function Home() {
 
       {/* Title & Instructions (Fixed at the top-left) */}
       <div className="fixed top-4 left-4 z-10">
-        <h1 className="text-2xl font-bold text-primary">3D Portfolio</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-2xl font-bold text-primary">3D Portfolio</h1>
+          <button
+            onClick={toggleMusic}
+            className="p-2 rounded-full hover:bg-muted transition-colors"
+            aria-label={isPlaying ? 'Mute music' : 'Play music'}
+          >
+            {isPlaying ? (
+              <Volume2 className="w-5 h-5 text-primary" />
+            ) : (
+              <VolumeX className="w-5 h-5 text-muted-foreground" />
+            )}
+          </button>
+        </div>
         <p className="text-sm text-muted-foreground">
           Navigate using mouse/touch controls
         </p>
@@ -76,7 +103,7 @@ export default function Home() {
                     : 'hover:bg-muted'
                 }`}
               >
-                Power Core
+                Central Core
               </button>
             </li>
 

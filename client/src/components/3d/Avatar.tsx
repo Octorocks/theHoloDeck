@@ -13,6 +13,8 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
   const [showText, setShowText] = useState(false)
+  const [displayedText, setDisplayedText] = useState('')
+  const fullText = `Tech obsessed and a massive nerd. I'm transitioning to a dedicated software development career, building on five years of impactful CRM automation work.`
 
   material.uniforms.time.value = 1.0;
 
@@ -22,8 +24,24 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
       return () => clearTimeout(timer)
     } else {
       setShowText(false)
+      setDisplayedText('')
     }
   }, [isActive])
+
+  useEffect(() => {
+    if (showText) {
+      let index = -1 // not to self, don't write such crap code. That way, you won't have to start the index at -1 
+      const typingSpeed = 25 
+      const interval = setInterval(() => {
+        setDisplayedText((prev) => prev + fullText.charAt(index))
+        index++
+        if (index >= fullText.length) {
+          clearInterval(interval)
+        }
+      }, typingSpeed)
+      return () => clearInterval(interval)
+    }
+  }, [showText, fullText])
 
   return (
     <group ref={groupRef} onClick={onClick} position={[0, 1.5, 0]} rotation={[0, Math.PI * 3/2.2, 0]}>
@@ -53,12 +71,17 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
       <Html position={[2, 0, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">About Me</h3>
-          <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0'}`}>
-            <p className="text-sm text-muted-foreground">
-              A passionate developer with a love for creating immersive web experiences.
-              Specializing in 3D web development and interactive applications.
-            </p>
-          </div>
+          <div className={`relative bg-black p-4 rounded-lg shadow-lg text-green-400 font-mono overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div
+          className={`relative bg-black p-4 rounded-lg shadow-lg text-green-400 font-mono overflow-hidden transition-all duration-500`}
+          style={{
+            maxHeight: showText ? '500px' : '0px',
+            opacity: showText ? 1 : 0,
+          }}
+        >
+          <p className="whitespace-pre-wrap">{displayedText}</p>
+        </div>
+        </div>
         </div>
       </Html>
     </group>

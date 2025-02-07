@@ -10,19 +10,23 @@ interface TechSphereProps {
 
 export function TechSphere({ onClick, isActive }: TechSphereProps) {
   const sphereRef = useRef<THREE.Mesh>(null)
-  const [showText, setShowText] = useState(false)
+  const [brightness, setBrightness] = useState(1)
+  const [showExpandedContent, setShowExpandedContent] = useState(false)
 
   useEffect(() => {
     if (isActive) {
-      const timer = setTimeout(() => setShowText(true), 2100)
+      const timer = setTimeout(() => setShowExpandedContent(true), 2100)
       return () => clearTimeout(timer)
     } else {
-      setShowText(false)
+      setShowExpandedContent(false)
     }
   }, [isActive])
 
-  useFrame(() => {
+  useFrame((state) => {
     if (sphereRef.current) {
+      const time = state.clock.getElapsedTime()
+      setBrightness(1 + Math.abs(Math.sin(time)) * 0.5)
+
       sphereRef.current.rotation.y += 0.0015
     }
   })
@@ -34,6 +38,7 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
         <meshPhongMaterial 
           color={0x00ff00}
           emissive={0x002200}
+          emissiveIntensity={brightness}
           transparent
           opacity={0.7}
           wireframe
@@ -46,20 +51,20 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
         }`}>
           <h3 className="text-xl font-bold mb-2">Skills</h3>
           <div className={`overflow-hidden transition-all duration-500 ${
-            isActive ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            showExpandedContent ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}>
             <div className="space-y-4">
               <div>
                 <h4 className="text-lg text-cyan-400 font-semibold">Frontend</h4>
-                <p className="text-sm text-muted-foreground">HTML, CSS, JavaScript, TypeScript, MS Paint (don't @ me)</p>
+                <p className="text-sm text-muted-foreground">HTML/CSS, TypeScript, JavaScript, MS Paint (Don't @ me)</p>
               </div>
               <div>
                 <h4 className="text-lg text-fuchsia-400 font-semibold">Backend</h4>
-                <p className="text-sm text-muted-foreground">Node.js, Custom APIs, SQL, Hubspot Workflows</p>
+                <p className="text-sm text-muted-foreground">Node.js, CRM Automation, SQL</p>
               </div>
               <div>
                 <h4 className="text-lg text-yellow-400 font-semibold">Awards</h4>
-                <p className="text-sm text-muted-foreground">Cultural Champion, Best Ideator, MVP of Operations</p>
+                <p className="text-sm text-muted-foreground">Cultural Champion, MVP of Operations, Best Ideator</p>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ interface CityscapeProps {
 export function Cityscape({ onClick, isActive }: CityscapeProps) {
   const groupRef = useRef<THREE.Group>(null)
   const material = holographicMaterial()
+  const [brightness, setBrightness] = useState(0.1)
   const [showText, setShowText] = useState(false)
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null)
 
@@ -83,7 +84,12 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
       {/* Simple Cube */}
       <mesh>
         <boxGeometry args={[2, 2, 2]} />
-        <meshBasicMaterial color={0x00ff88} wireframe={true} />
+        <meshPhongMaterial 
+          color={0x00ff88}
+          emissive={0x00ff88}
+          emissiveIntensity={brightness}
+          wireframe={true}
+        />
       </mesh>
 
       <Html position={[2, 0, 0]}>

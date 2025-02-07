@@ -7,7 +7,6 @@ import { TechSphere } from './TechSphere'
 import { Cityscape } from './Cityscape'
 import { HoloTerminal } from './Terminal'
 import { useEffect, useState } from 'react' // React hooks for state and effects
-import { useAudio } from '@/hooks/use-audio' // Custom hook for handling audio playback
 import * as THREE from 'three' // Import Three.js for 3D vector calculations
 
 // Define props for the Environment component
@@ -21,14 +20,16 @@ interface EnvironmentProps {
 // Environment component that sets up the 3D scene
 export function Environment({ onObjectSelect, activeObject, onControlsReady, onCameraReady }: EnvironmentProps) {
   const [loaded, setLoaded] = useState(false) // State to track when the scene has loaded
-  const { playAmbient } = useAudio() // Custom hook for playing ambient sound
+  const [ambientLightIntensity, setAmbientLightIntensity] = useState(0)
 
-  // Play ambient sound once the scene is fully loaded
   useEffect(() => {
-    if (loaded) {
-      playAmbient()
-    }
-  }, [loaded, playAmbient])
+    // Delay ambient light until cube lands
+    const timer = setTimeout(() => {
+      setAmbientLightIntensity(0.2)
+    }, 4000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <div className="w-full h-screen no-select">
@@ -40,7 +41,7 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <PerspectiveCamera 
           ref={onCameraReady} // Store reference to the camera
           makeDefault // Make this the default camera
-          position={[0, 8, 18]} // Initial camera position
+          position={[0, 10, 20]} // Initial camera position
         />
         
         {/* Enable user control over the camera (click & drag, zoom, pan) */}
@@ -60,7 +61,7 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         />
 
         {/* Scene lighting */}
-        <ambientLight intensity={0.2} /> {/* Soft global light */}
+        <ambientLight intensity={ambientLightIntensity} /> {/* Dynamic intensity */}
         <spotLight 
           position={[10, 10, 10]} // Light position
           angle={0.15} // Beam angle
