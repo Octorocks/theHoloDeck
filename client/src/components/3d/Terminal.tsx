@@ -154,7 +154,7 @@ export function HoloTerminal({
         anchorX="center"
         anchorY="middle"
       >
-        {selectedProject !== null ? '< BACK_' : isActive ? '> TERMINAL ACTIVE_' : '> READY_'}
+        {selectedProject !== null ? '< BACK_' : isActive ? '> SELECT_' : '> READY_'}
       </Text>
 
       {/* Project details panel */}
