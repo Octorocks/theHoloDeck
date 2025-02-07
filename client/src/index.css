@@ -20,3 +20,9 @@
     -ms-user-select: none;
   }
 }
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: block; /* Show the menu by default on larger screens */
+  }
+}

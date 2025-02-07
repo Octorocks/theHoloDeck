@@ -5,7 +5,7 @@ import chimpoTrance from '../assets/eddBSiteLoop.mp3'
 const ambient = new Howl({
   src: [chimpoTrance],
   loop: true,
-  volume: 0.05
+  volume: 0.30
 })
 
 export function useAudio() {

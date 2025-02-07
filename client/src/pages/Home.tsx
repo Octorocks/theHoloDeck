@@ -2,7 +2,7 @@ import { Environment } from '@/components/3d/Environment' // Import the 3D envir
 import { useState, useCallback } from 'react' // Import React hooks for state and memoized functions
 import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
-import { Music, Volume2, VolumeX } from 'lucide-react' // Import icons
+import { Music, Volume2, VolumeX } from 'lucide-react' 
 import { useAudio } from '../hooks/use-audio'
 
 export default function Home() {
