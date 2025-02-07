@@ -17,6 +17,7 @@ export default function Home() {
 
   const [isPlaying, setIsPlaying] = useState(true)
   const { playAmbient, stopAmbient } = useAudio()
+  playAmbient() // spin that shit
 
   // Function to smoothly move the camera to a new position and focus on a target
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
