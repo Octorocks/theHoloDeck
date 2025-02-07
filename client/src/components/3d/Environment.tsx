@@ -48,13 +48,13 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <OrbitControls 
           ref={onControlsReady} // Store reference to controls
           enablePan={false} // deny panning
-          enableZoom={false} // Allow zooming
+          enableZoom={true} // Allow zooming
           enableRotate={true} // deny rotation
           minPolarAngle={Math.PI / 4} // Restrict downward tilt
-          maxPolarAngle={Math.PI / 2} // Restrict upward tilt
+          maxPolarAngle={Math.PI / 2.5} // Restrict upward tilt
           // Limit how far the camera can move forward and backward
-          minDistance={10} 
-          maxDistance={40}
+          minDistance={2} 
+          maxDistance={14}
           // Restrict left-right movement within full rotation range
           minAzimuthAngle={-Math.PI} 
           maxAzimuthAngle={Math.PI}

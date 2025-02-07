@@ -92,7 +92,7 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
         />
       </mesh>
 
-      <Html position={[2, 0, 0]}>
+      <Html position={[-0.5, 1.3, 1]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-80 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">Experience</h3>
           <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>

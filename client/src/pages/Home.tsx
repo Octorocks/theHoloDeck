@@ -1,9 +1,30 @@
 import { Environment } from '@/components/3d/Environment' // Import the 3D environment component
-import { useState, useCallback } from 'react' // Import React hooks for state and memoized functions
+import { useState, useEffect, useCallback } from 'react' // Import React hooks for state and memoized functions
 import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
 import { Music, Volume2, VolumeX } from 'lucide-react' 
 import { useAudio } from '../hooks/use-audio'
+
+
+// make sure this message is only visible for 10 seconds, for the sake of mobile users
+const FunkyMessage = () => {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(false), 10000); // Message visible for 10 seconds
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
+
+  return (
+    <div>
+      {visible && (
+        <p className="text-sm text-muted-foreground">
+          Why not switch on the funky music? (written and recorded by me)
+        </p>
+      )}
+    </div>
+  );
+};
 
 export default function Home() {
   // State to track the currently active object
@@ -78,9 +99,7 @@ export default function Home() {
             )}
           </button>
         </div>
-        <p className="text-sm text-muted-foreground">
-          Why not switch on the funky music? (written and recorded by me)
-        </p>
+        <FunkyMessage />
       </div>
 
       {/* Navigation Menu (Fixed at the top-right) */}

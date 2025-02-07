@@ -68,7 +68,7 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
         </group>
       ))}
 
-      <Html position={[2, 0, 0]}>
+      <Html position={[-1, 1.5, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">About Me</h3>
           <div className={`relative bg-black p-4 rounded-lg shadow-lg text-green-400 font-mono overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
