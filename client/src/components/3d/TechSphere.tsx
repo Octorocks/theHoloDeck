@@ -45,14 +45,14 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
         />
       </mesh>
 
-      <Html position={[-0.75, 1, 0]}>
+      <Html position={[-1.1, 2.3, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
-          isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
+          isActive ? 'w-64 opacity-100' : 'w-20 opacity-80 h-14' 
         }`}>
           <h3 className="text-xl font-bold mb-2">Skills</h3>
           <div className={`overflow-hidden transition-all duration-500 ${
             showExpandedContent ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}>
+          }`}> 
             <div className="space-y-4">
               <div>
                 <h4 className="text-lg text-cyan-400 font-semibold">Frontend</h4>
