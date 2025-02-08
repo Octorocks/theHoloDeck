@@ -48,7 +48,7 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
       {/* Server rack base */}
       <mesh>
         <boxGeometry args={[1.5, 3, 0.8]} />
-        <meshStandardMaterial color={0x2a2a2a} metalness={0.8} roughness={0.2} emissive={0x111111} />
+        <meshStandardMaterial color={0x00ff00} metalness={0.8} roughness={0.2} emissive={0x00ff00} emissiveIntensity={0.2}/>
       </mesh>
 
       {/* Server units */}

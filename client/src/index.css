@@ -37,14 +37,79 @@
   opacity: 0.7; /* Optional: make it slightly transparent */
 }
 
+/* Hamburger Menu Styles */
+.hamburger-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+}
+
+.hamburger-button {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.hamburger-button svg {
+  height: 24px;
+  width: 24px;
+  fill: currentColor;
+}
+
+/* Styles for the dropdown menu */
 .menu {
-  transition: max-height 0.2s ease-out, opacity 0.2s ease-out; /* Faster transition for height and opacity */
-  overflow: hidden; /* Hide overflow to prevent content from showing when collapsed */
-  max-height: 0; /* Start with a max-height of 0 */
-  opacity: 0; /* Start with opacity 0 */
+  background-color: rgba(0, 0, 0, 0.95);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 .menu.open {
-  max-height: 500px; /* Set a max-height when open (adjust as needed) */
-  opacity: 1; /* Set opacity to 1 when open */
+  max-height: 300px; /* Adjust as necessary */
+  opacity: 1;
 }
+
+.menu li {
+  list-style: none;
+}
+
+.menu li + li {
+  margin-top: 0.25rem;
+}
+
+.menu li button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.menu li button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item {
+  position: absolute; /* Position absolute for circular layout */
+  width: 40px; /* Icon size */
+  height: 40px; /* Icon size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease; /* Smooth transition for icons */
+}
+
+.menu-item:hover {
+  transform: scale(1.2); /* Scale up on hover */
+}
+
+

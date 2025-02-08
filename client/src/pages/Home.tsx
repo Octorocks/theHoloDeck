@@ -2,10 +2,9 @@ import { Environment } from '@/components/3d/Environment' // Import the 3D envir
 import { useState, useEffect, useCallback } from 'react' // Import React hooks for state and memoized functions
 import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
-import { Music, Volume2, VolumeX } from 'lucide-react' 
+import { Music, Volume2, VolumeX, Menu } from 'lucide-react' 
 import { useAudio } from '../hooks/use-audio'
 import '../index.css'
-
 
 // make sure this message is only visible for 10 seconds, for the sake of mobile users
 const FunkyMessage = () => {
@@ -41,6 +40,7 @@ export default function Home() {
   const { playAmbient, stopAmbient } = useAudio()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu visibility
+  const [isActive, setIsActive] = useState(false); // State to manage active status
 
   // Function to smoothly move the camera to a new position and focus on a target
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
@@ -77,12 +77,14 @@ export default function Home() {
   }, [isPlaying, playAmbient, stopAmbient])
 
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev); // Toggle the menu open/close
+    setIsMenuOpen((prev) => !prev);
+    setIsActive(false);
   };
 
-  const handleMenuItemClick = (cameraPosition: THREE.Vector3, lookAtPosition: THREE.Vector3, objectId: string) => {
-    moveCamera(cameraPosition, lookAtPosition, objectId); // Move the camera
-    setIsMenuOpen(false); // Close the menu after selection
+  const handleMenuItemClick = (cameraPosition: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
+    moveCamera(cameraPosition, target, objectId);
+    setIsMenuOpen(false);
+    setIsActive(false);
   };
 
   return (
@@ -114,107 +116,78 @@ export default function Home() {
         <FunkyMessage />
       </div>
 
-      {/* Navigation Menu (Fixed at the top-right) */}
-      <div className="fixed top-4 right-4 z-10">
-        <div className="bg-background/90 p-4 rounded-lg">
-          <h2 
-            className="text-lg font-semibold mb-2 text-primary cursor-pointer" 
-            onClick={toggleMenu} // Toggle menu on click
-          >
-            Navigation
-          </h2>
-          <ul className={`menu ${isMenuOpen ? 'open' : ''} space-y-2`}>
-            {/* Button to move the camera to the "Power Core" object */}
-            <li>
-              <button
-                onClick={() => handleMenuItemClick(
-                  new THREE.Vector3(0, 8, 15), // Camera position
-                  new THREE.Vector3(0, 0, 0), // Look at target
-                  'cube' // Object ID
-                )}
-                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
-                  activeObject === 'cube' 
-                    ? 'bg-primary text-primary-foreground' 
-                    : 'hover:bg-muted'
-                }`}
-              >
-                Central Core
-              </button>
-            </li>
-
-            {/* Button to move the camera to the "About Me" section */}
-            <li>
-              <button
-                onClick={() => handleMenuItemClick(
+      {/* Hamburger navigation at the top-right */}
+      <div className="hamburger-container">
+        <button className="hamburger-button" onClick={toggleMenu}>
+          <Menu size={24} className="text-primary" />
+        </button>
+        <ul className={`menu ${isMenuOpen ? "open" : ""}`}>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
+                  new THREE.Vector3(0, 8, 15),
+                  new THREE.Vector3(0, 0, 0),
+                  "cube"
+                )
+              }
+            >
+              🏡
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
                   new THREE.Vector3(10, 8, 10),
                   new THREE.Vector3(15, 0, 15),
-                  'avatar'
-                )}
-                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
-                  activeObject === 'avatar'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
-              >
-                About Me
-              </button>
-            </li>
-
-            {/* Button to move the camera to the "Skills" section */}
-            <li>
-              <button
-                onClick={() => handleMenuItemClick(
+                  "avatar"
+                )
+              }
+            >
+              🤚
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
                   new THREE.Vector3(0, 8, -9),
                   new THREE.Vector3(0, 4, -15),
-                  'sphere'
-                )}
-                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
-                  activeObject === 'sphere'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
-              >
-                Skills
-              </button>
-            </li>
-
-            {/* Button to move the camera to the "Experience" section */}
-            <li>
-              <button
-                onClick={() => handleMenuItemClick(
+                  "sphere"
+                )
+              }
+            >
+              🧠
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
                   new THREE.Vector3(-10, 5, -5),
                   new THREE.Vector3(-15, 1, -10),
-                  'city'
-                )}
-                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
-                  activeObject === 'city'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
-              >
-                Experience
-              </button>
-            </li>
-
-            {/* Button to move the camera to the "Terminal" section */}
-            <li>
-              <button
-                onClick={() => handleMenuItemClick(
+                  "city"
+                )
+              }
+            >
+              👩‍💻
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
                   new THREE.Vector3(-7, 4, 6),
                   new THREE.Vector3(-15, 1.5, 10),
-                  'Projects'
-                )}
-                className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
-                  activeObject === 'terminal'
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
-                }`}
-              >
-                Projects
-              </button>
-            </li>
-          </ul>
-        </div>
+                  "terminal"
+                )
+              }
+            >
+              🏗
+            </button>
+          </li>
+        </ul>
       </div>
 
       {/* Signature text */}
