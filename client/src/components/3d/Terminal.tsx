@@ -162,7 +162,7 @@ export function HoloTerminal({
       </Text>
 
       {/* Project details panel */}
-      <Html position={[-1, 0, 0]}>
+      <Html position={[-3, 0, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
           isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
         }`}>

@@ -4,6 +4,7 @@ import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
 import { Music, Volume2, VolumeX } from 'lucide-react' 
 import { useAudio } from '../hooks/use-audio'
+import '../index.css'
 
 
 // make sure this message is only visible for 10 seconds, for the sake of mobile users
@@ -74,7 +75,7 @@ export default function Home() {
   }, [isPlaying, playAmbient, stopAmbient])
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-black">
+    <div className="w-full h-screen overflow-hidden bg-black relative">
       {/* 3D Environment Component */}
       <Environment 
         onObjectSelect={moveCamera} // Callback when an object is selected
@@ -86,7 +87,7 @@ export default function Home() {
       {/* Title & Instructions (Fixed at the top-left) */}
       <div className="fixed top-4 left-4 z-10">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-primary">3D Portfolio</h1>
+          <h1 className="text-2xl font-bold text-primary">HoloDeck <br></br> Portfolio.</h1>
           <button
             onClick={toggleMusic}
             className="p-2 rounded-full hover:bg-muted transition-colors"
@@ -197,10 +198,12 @@ export default function Home() {
                 Projects
               </button>
             </li>
-
           </ul>
         </div>
       </div>
+
+      {/* Signature text */}
+      <p className="signature">Edd Brisley [2025]</p>
     </div>
   )
 }

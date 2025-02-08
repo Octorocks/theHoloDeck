@@ -26,3 +26,13 @@
     display: block; /* Show the menu by default on larger screens */
   }
 }
+
+.signature {
+  position: absolute;
+  bottom: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  font-size: 12px; /* Adjust font size */
+  font-family: 'Courier New', Courier, monospace;
+  color: #07a161; /* Change color to fit your design */
+  opacity: 0.7; /* Optional: make it slightly transparent */
+}
