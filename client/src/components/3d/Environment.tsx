@@ -48,13 +48,13 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <OrbitControls 
           ref={onControlsReady} // Store reference to controls
           enablePan={false} // deny panning
-          enableZoom={true} // Allow zooming
+          enableZoom={false} // Allow zooming
           enableRotate={true} // deny rotation
           minPolarAngle={Math.PI / 4} // Restrict downward tilt
           maxPolarAngle={Math.PI / 2.5} // Restrict upward tilt
           // Limit how far the camera can move forward and backward
           minDistance={2} 
-          maxDistance={14}
+          maxDistance={50}
           // Restrict left-right movement within full rotation range
           minAzimuthAngle={-Math.PI} 
           maxAzimuthAngle={Math.PI}
@@ -114,8 +114,8 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <group position={[15, 0, -15]}>
           <HoloTerminal 
             onClick={() => onObjectSelect(
-              new THREE.Vector3(-8, 5, 6),
-              new THREE.Vector3(-15, 0, 10),
+              new THREE.Vector3(-2, 5, 2),
+              new THREE.Vector3(-15, 1.5, 10),
               'terminal'
             )}
             isActive={activeObject === 'terminal'}

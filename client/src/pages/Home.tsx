@@ -184,8 +184,8 @@ export default function Home() {
             <li>
               <button
                 onClick={() => moveCamera(
-                  new THREE.Vector3(-8, 5, 6),  // Camera position: inward for viewing outward
-                  new THREE.Vector3(-15, 0, 10),  // Look at terminal position
+                  new THREE.Vector3(-7, 4, 6), //cmera position: inward for viewing outward 
+                  new THREE.Vector3(-15, 1.5, 10),  // Look at terminal position
                   'Projects'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${

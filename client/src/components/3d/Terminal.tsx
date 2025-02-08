@@ -162,7 +162,7 @@ export function HoloTerminal({
       </Text>
 
       {/* Project details panel */}
-      <Html position={[2, 0, 0]}>
+      <Html position={[-1, 0, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
           isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
         }`}>
@@ -189,11 +189,12 @@ export function HoloTerminal({
       {projects.map((project, index) => {
         let position: [number, number, number] = [0, 0, 0];
         if (index < 2) {
-          position = [-3.5, 1.8 + (index * 1.5), 0];
+          position = [-2.5, 1.3 + (index * 1.2), 0];
         } else if (index < 4) {
-          position = [(index - 2.5) * 2.5, 3.3, 0];
+          position = [(index - 2.5) * 1.7, 2.9, 0];
         } else if (index < 6) {
-          position = [3.5, 1.8 + ((index - 4) * 1.5), 0];
+
+          position = [2.5, 1.3 + ((index - 4) * 1.2), 0];
         }
 
         return (
@@ -216,10 +217,11 @@ export function HoloTerminal({
                        index === 4 ? '#ff8000' : 
                        '#8000ff'}
                 transparent
-                opacity={0}
+                opacity={0.2}
                 side={THREE.DoubleSide}
               />
             </mesh>
+
             <Text
               position-z={0.1}
               fontSize={0.15}
