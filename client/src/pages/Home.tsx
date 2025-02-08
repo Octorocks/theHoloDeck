@@ -20,7 +20,7 @@ const FunkyMessage = () => {
     <div>
       {visible && (
         <p className="text-sm text-muted-foreground">
-          Why not switch on the funky music? (written and recorded by me)
+          Toggle sound on <br></br> for a funky experience
         </p>
       )}
     </div>
@@ -39,6 +39,8 @@ export default function Home() {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const { playAmbient, stopAmbient } = useAudio()
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu visibility
 
   // Function to smoothly move the camera to a new position and focus on a target
   const moveCamera = useCallback((position: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
@@ -74,6 +76,15 @@ export default function Home() {
     setIsPlaying(!isPlaying)
   }, [isPlaying, playAmbient, stopAmbient])
 
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev); // Toggle the menu open/close
+  };
+
+  const handleMenuItemClick = (cameraPosition: THREE.Vector3, lookAtPosition: THREE.Vector3, objectId: string) => {
+    moveCamera(cameraPosition, lookAtPosition, objectId); // Move the camera
+    setIsMenuOpen(false); // Close the menu after selection
+  };
+
   return (
     <div className="w-full h-screen overflow-hidden bg-black relative">
       {/* 3D Environment Component */}
@@ -106,13 +117,17 @@ export default function Home() {
       {/* Navigation Menu (Fixed at the top-right) */}
       <div className="fixed top-4 right-4 z-10">
         <div className="bg-background/90 p-4 rounded-lg">
-          <h2 className="text-lg font-semibold mb-2 text-primary">Navigation</h2>
-          <ul className="space-y-2">
-            
+          <h2 
+            className="text-lg font-semibold mb-2 text-primary cursor-pointer" 
+            onClick={toggleMenu} // Toggle menu on click
+          >
+            Navigation
+          </h2>
+          <ul className={`menu ${isMenuOpen ? 'open' : ''} space-y-2`}>
             {/* Button to move the camera to the "Power Core" object */}
             <li>
               <button
-                onClick={() => moveCamera(
+                onClick={() => handleMenuItemClick(
                   new THREE.Vector3(0, 8, 15), // Camera position
                   new THREE.Vector3(0, 0, 0), // Look at target
                   'cube' // Object ID
@@ -130,7 +145,7 @@ export default function Home() {
             {/* Button to move the camera to the "About Me" section */}
             <li>
               <button
-                onClick={() => moveCamera(
+                onClick={() => handleMenuItemClick(
                   new THREE.Vector3(10, 8, 10),
                   new THREE.Vector3(15, 0, 15),
                   'avatar'
@@ -148,9 +163,9 @@ export default function Home() {
             {/* Button to move the camera to the "Skills" section */}
             <li>
               <button
-                onClick={() => moveCamera(
-                  new THREE.Vector3(0, 8, -9), //22
-                  new THREE.Vector3(0, 4, -15), //25
+                onClick={() => handleMenuItemClick(
+                  new THREE.Vector3(0, 8, -9),
+                  new THREE.Vector3(0, 4, -15),
                   'sphere'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
@@ -166,7 +181,7 @@ export default function Home() {
             {/* Button to move the camera to the "Experience" section */}
             <li>
               <button
-                onClick={() => moveCamera(
+                onClick={() => handleMenuItemClick(
                   new THREE.Vector3(-10, 5, -5),
                   new THREE.Vector3(-15, 1, -10),
                   'city'
@@ -184,9 +199,9 @@ export default function Home() {
             {/* Button to move the camera to the "Terminal" section */}
             <li>
               <button
-                onClick={() => moveCamera(
-                  new THREE.Vector3(-7, 4, 6), //cmera position: inward for viewing outward 
-                  new THREE.Vector3(-15, 1.5, 10),  // Look at terminal position
+                onClick={() => handleMenuItemClick(
+                  new THREE.Vector3(-7, 4, 6),
+                  new THREE.Vector3(-15, 1.5, 10),
                   'Projects'
                 )}
                 className={`text-sm px-3 py-1 rounded-md transition-colors w-full text-left ${
