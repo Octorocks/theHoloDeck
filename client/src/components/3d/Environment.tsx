@@ -41,7 +41,7 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <PerspectiveCamera 
           ref={onCameraReady} // Store reference to the camera
           makeDefault // Make this the default camera
-          position={[0, 10, 20]} // Initial camera position
+          position={[9, 12, -25]} // Initial camera position
         />
         
         {/* Enable user control over the camera (click & drag, zoom, pan) */}

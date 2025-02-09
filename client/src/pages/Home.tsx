@@ -192,7 +192,7 @@ export default function Home() {
       </div>
 
       {/* Signature text */}
-      <p className="signature">Edd Brisley [2025]</p>
+      <p className="signature">Edd Brisley [2025] <br></br> Lets connect on <a href="https://www.linkedin.com/in/edd-brisley/" target="_blank" rel="noopener noreferrer"><u>LinkedIn</u></a></p>
     </div>
   )
 }

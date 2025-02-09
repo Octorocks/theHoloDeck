@@ -34,6 +34,18 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
   })
 
   const companies = {
+    hirespace: {
+      name: "Hire Space",
+      color: "emerald",
+      role: "CRM Specialist",
+      description: [
+        "Own the CRM system",
+        "Build and maintain custom code automations",
+        "Run Hubspot QA", 
+        "Maintain data integrity across pipelines and use cases"
+      ],
+      tech: "Node.js, JavaScript, HubL, HTML/CSS, SQL"
+    },
     monzo: {
       name: "Monzo",
       color: "cyan",
@@ -47,7 +59,7 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
     },
     better: {
       name: "Better",
-      color: "emerald",
+      color: "amber",
       role: "Operations Manager",
       description: [
         "Own the CRM system",
@@ -55,18 +67,6 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
         "Manage customer support department"
       ],
       tech: "SaaSquatch, Zapier, Hubspot, Segment, Hiya, the BAT Computer"
-    },
-    hirespace: {
-      name: "Hire Space",
-      color: "amber",
-      role: "CRM Specialist",
-      description: [
-        "Own the CRM system",
-        "Build and maintain custom code automations",
-        "Run Hubspot QA", 
-        "Maintain data integrity across pipelines and use cases"
-      ],
-      tech: "Node.js, JavaScript, HubL, HTML/CSS, SQL"
     },
     royalmail: {
       name: "Royal Mail",
@@ -92,7 +92,7 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
         />
       </mesh>
 
-      <Html position={[-0.5, 1.3, 1]}>
+      <Html position={[-1.2, 0.8, 1]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-80 opacity-100' : 'w-32 opacity-80'}`}>
           <h3 className="text-xl font-bold mb-2">Experience</h3>
           <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
