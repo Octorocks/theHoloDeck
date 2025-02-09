@@ -68,6 +68,29 @@ export default function Home() {
     }
   }, [camera, controls]) // Dependencies: function updates when camera or controls change
 
+  useEffect(() => {
+    if (camera && controls) {
+      // Wait 300ms before starting the sequence.
+      setTimeout(() => {
+        // First, move the camera to an intermediate position.
+        moveCamera(
+          new THREE.Vector3(-15, 9, -15),  // Intermediate position
+          new THREE.Vector3(0, 0, 0),   // Target remains the same
+          'intermediate'
+        );
+
+        // After the intermediate move (assume it takes ~2 seconds), move to the final destination.
+        setTimeout(() => {
+          moveCamera(
+            new THREE.Vector3(0, 10, 20), // Final position
+            new THREE.Vector3(0, 0, 0),  // Staying with the same target
+            'final'
+          );
+        }, 2500); // 2.5 second delay after moving to the intermediate position
+      }, 300); // Initial 300ms delay
+    }
+  }, [camera, controls, moveCamera])
+
   const toggleMusic = useCallback(() => {
     if (isPlaying) {
       stopAmbient()
