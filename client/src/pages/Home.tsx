@@ -6,6 +6,7 @@ import { Music, Volume2, VolumeX, Menu } from 'lucide-react'
 import { useAudio } from '../hooks/use-audio'
 import '../index.css'
 
+
 // make sure this message is only visible for 10 seconds, for the sake of mobile users
 const FunkyMessage = () => {
   const [visible, setVisible] = useState(true);

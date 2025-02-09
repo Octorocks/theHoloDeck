@@ -6,6 +6,7 @@ import { useFrame } from '@react-three/fiber'
 interface HoloTerminalProps {
   onClick: () => void
   isActive: boolean
+  shouldAnimate?: boolean  // New optional prop to control animation
   position?: [number, number, number]
   rotation?: [number, number, number]
 }
@@ -64,6 +65,13 @@ export function HoloTerminal({
   const groupRef = useRef<THREE.Group>(null)
   const [cardStates, setCardStates] = useState(projects.map(() => ({ scale: 0, opacity: 1 })))
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [clicked, setClicked] = useState(false);
+
+  const handleLocalClick = (e: any) => {
+    e.stopPropagation();
+    setClicked(true);
+    onClick();
+  }
 
   useFrame(() => {
     cardStates.forEach((state, index) => {
@@ -79,19 +87,20 @@ export function HoloTerminal({
   })
 
   useEffect(() => {
-    if (isActive) {
-      // Stagger the animations with proper opacity
+    if (clicked) {
       projects.forEach((_, index) => {
         setTimeout(() => {
-          setCardStates(prev => prev.map((state, i) => 
-            i === index ? { scale: 1, opacity: 0.8 } : state
-          ))
-        }, index * 200)
-      })
+          setCardStates(prev =>
+            prev.map((state, i) =>
+              i === index ? { scale: 1, opacity: 0.8 } : state
+            )
+          );
+        }, index * 200);
+      });
     } else {
-      setCardStates(projects.map(() => ({ scale: 0, opacity: 0 })))
+      setCardStates(projects.map(() => ({ scale: 0, opacity: 0 })));
     }
-  }, [isActive])
+  }, [clicked]);
 
   // Add effect for selection
   useEffect(() => {
@@ -101,7 +110,7 @@ export function HoloTerminal({
         ? { scale: 1, opacity: 0.8 }
         : { scale: 0, opacity: 0 }
     ))
-    } else if (isActive) {
+    } else if (clicked) {
       // Restore all cards when deselecting
       projects.forEach((_, index) => {
         setTimeout(() => {
@@ -111,12 +120,12 @@ export function HoloTerminal({
         }, index * 200)
       })
     }
-  }, [selectedProject, isActive])
+  }, [selectedProject, clicked])
 
   return (
     <group 
       ref={groupRef} 
-      onClick={onClick} 
+      onClick={handleLocalClick} 
       position={position}
       rotation={rotation}
     >
@@ -158,13 +167,13 @@ export function HoloTerminal({
         anchorX="center"
         anchorY="middle"
       >
-        {selectedProject !== null ? '< BACK_' : isActive ? '> SELECT_' : '> READY_'}
+        {selectedProject !== null ? '< BACK_' : clicked ? '> SELECT_' : '> READY_'}
       </Text>
 
       {/* Project details panel */}
       <Html position={[-3, 0, 0]}>
         <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
-          isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
+          clicked ? 'w-64 opacity-100' : 'w-32 opacity-80'
         }`}>
           <h3 className="text-xl font-bold mb-2">Projects</h3>
           <div className={`overflow-hidden transition-all duration-500 ${
