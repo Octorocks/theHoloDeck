@@ -226,11 +226,10 @@ export function HoloTerminal({
             scale={0}
             onClick={(e) => {
               e.stopPropagation();
-              // If the card is already selected, de-select it to restore the select state.
+              // Toggle card selection: deselect if already chosen, otherwise select.
               if (selectedProject === index) {
                 setSelectedProject(null);
               } else {
-                // Otherwise, select this card, hiding the others.
                 setSelectedProject(index);
               }
             }}
@@ -239,17 +238,12 @@ export function HoloTerminal({
               <planeGeometry args={[1.5, 0.9]} />
               <meshBasicMaterial
                 color={
-                  index === 0
-                    ? 'cyan'
-                    : index === 1
-                    ? 'magenta'
-                    : index === 2
-                    ? '#00ff80'
-                    : index === 3
-                    ? '#4040ff'
-                    : index === 4
-                    ? '#ff8000'
-                    : '#8000ff'
+                  index === 0 ? '#00ff00' :  // AutoResponder: Green
+                  index === 1 ? '#ff8000' :  // Pipeline Tool: Orange
+                  index === 2 ? '#ff69b4' :  // Referral System: Pink
+                  index === 3 ? '#4040ff' :  // DnD Roller: Unchanged
+                  index === 4 ? '#ff0000' :  // RHCP Ranker: Red
+                  '#8000ff'                // Server Project: Unchanged
                 }
                 transparent
                 opacity={0.2}
