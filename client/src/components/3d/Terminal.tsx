@@ -166,6 +166,20 @@ export function HoloTerminal({
         color={0x00ff00}
         anchorX="center"
         anchorY="middle"
+        onClick={(e) => {
+          e.stopPropagation();
+          if (selectedProject !== null) {
+            // If < BACK_ is clicked, reset state to return to READY state.
+            setSelectedProject(null);
+            setClicked(false);
+          } else {
+            // When the terminal is in its READY state, execute onClick to move the camera.
+            if (!clicked) {
+              onClick(); // This callback should move the camera to a specific vector.
+              setClicked(true);
+            }
+          }
+        }}
       >
         {selectedProject !== null ? '< BACK_' : clicked ? '> SELECT_' : '> READY_'}
       </Text>
@@ -202,7 +216,6 @@ export function HoloTerminal({
         } else if (index < 4) {
           position = [(index - 2.5) * 1.7, 2.9, 0];
         } else if (index < 6) {
-
           position = [2.5, 1.3 + ((index - 4) * 1.2), 0];
         }
 
@@ -213,29 +226,38 @@ export function HoloTerminal({
             scale={0}
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedProject(index);
+              // If the card is already selected, de-select it to restore the select state.
+              if (selectedProject === index) {
+                setSelectedProject(null);
+              } else {
+                // Otherwise, select this card, hiding the others.
+                setSelectedProject(index);
+              }
             }}
           >
             <mesh>
               <planeGeometry args={[1.5, 0.9]} />
-              <meshBasicMaterial  // Changed to BasicMaterial
-                color={index === 0 ? 'cyan' : 
-                       index === 1 ? 'magenta' : 
-                       index === 2 ? '#00ff80' : 
-                       index === 3 ? '#4040ff' : 
-                       index === 4 ? '#ff8000' : 
-                       '#8000ff'}
+              <meshBasicMaterial
+                color={
+                  index === 0
+                    ? 'cyan'
+                    : index === 1
+                    ? 'magenta'
+                    : index === 2
+                    ? '#00ff80'
+                    : index === 3
+                    ? '#4040ff'
+                    : index === 4
+                    ? '#ff8000'
+                    : '#8000ff'
+                }
                 transparent
                 opacity={0.2}
                 side={THREE.DoubleSide}
               />
             </mesh>
 
-            <Text
-              position-z={0.1}
-              fontSize={0.15}
-              color="white"
-            >
+            <Text position-z={0.1} fontSize={0.15} color="white">
               {project.name}
             </Text>
           </group>
