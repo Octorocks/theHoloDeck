@@ -21,3 +21,5 @@ export default defineConfig({
     emptyOutDir: true,
   },
 });
+
+// standard import
