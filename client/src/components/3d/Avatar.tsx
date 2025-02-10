@@ -70,6 +70,10 @@ export function Avatar({ onClick, isActive }: AvatarProps) {
 
 <Html position={[-1.6, 2, 0]}>
   <div
+    onClick={(e) => {
+      e.stopPropagation()
+      onClick()
+    }}
     className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
       isActive ? 'w-64 opacity-100' : 'w-32 opacity-80'
     }`}

@@ -93,7 +93,15 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
       </mesh>
 
       <Html position={[-1.2, 0.8, 1]}>
-        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${isActive ? 'w-80 opacity-100' : 'w-32 opacity-80'}`}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation()
+            onClick()
+          }}
+          className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
+            isActive ? 'w-80 opacity-100' : 'w-32 opacity-80'
+          }`}
+        >
           <h3 className="text-xl font-bold mb-2">Experience</h3>
           <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
             <div className="text-sm text-muted-foreground">
@@ -124,17 +132,16 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
                       ${company.color === 'emerald' ? 'text-emerald-400' : ''}
                       ${company.color === 'amber' ? 'text-amber-400' : ''}
                       ${company.color === 'red' ? 'text-red-400' : ''}
-                    `}>→ {company.name}</p>
+                    `}>
+                      → {company.name}
+                    </p>
                     {selectedCompany === key ? (
                       <div className="mt-2 space-y-2 animate-fadeIn">
                         <p className="text-xs font-semibold">{company.role}</p>
                         <ul className="text-xs opacity-70 list-disc pl-4 space-y-1">
                           {Array.isArray(company.description) 
-                            ? company.description.map((item, i) => (
-                                <li key={i}>{item}</li>
-                              ))
-                            : company.description
-                          }
+                            ? company.description.map((item, i) => <li key={i}>{item}</li>)
+                            : company.description}
                         </ul>
                         <p className="text-xs opacity-70 font-mono">{company.tech}</p>
                       </div>
