@@ -2,8 +2,9 @@ import { Environment } from '@/components/3d/Environment' // Import the 3D envir
 import { useState, useEffect, useCallback } from 'react' // Import React hooks for state and memoized functions
 import * as THREE from 'three' // Import the Three.js library for 3D rendering
 import { gsap } from 'gsap' // Import GSAP for smooth animations
-import { Music, Volume2, VolumeX, Menu } from 'lucide-react' 
+import { Music, Volume2, VolumeX, Menu, Home as HomeIcon } from 'lucide-react' 
 import { useAudio } from '../hooks/use-audio'
+import { HoloTerminal } from '../components/3d/Terminal' // Import the terminal component
 import '../index.css'
 
 
@@ -111,6 +112,10 @@ export default function Home() {
     setIsActive(false);
   };
 
+  // Define the home (PowerCube) camera position and target.
+  const homeCameraPosition = new THREE.Vector3(0, 8, 15)
+  const homeCameraTarget = new THREE.Vector3(0, 0, 0)
+
   return (
     <div className="w-full h-screen overflow-hidden bg-black relative">
       {/* 3D Environment Component */}
@@ -146,19 +151,6 @@ export default function Home() {
           <Menu size={24} className="text-primary" />
         </button>
         <ul className={`menu ${isMenuOpen ? "open" : ""}`}>
-          <li>
-            <button
-              onClick={() =>
-                handleMenuItemClick(
-                  new THREE.Vector3(0, 8, 15),
-                  new THREE.Vector3(0, 0, 0),
-                  "cube"
-                )
-              }
-            >
-              🏡
-            </button>
-          </li>
           <li>
             <button
               onClick={() =>
@@ -214,8 +206,18 @@ export default function Home() {
         </ul>
       </div>
 
+      {/* Home Icon - Fixed at Bottom Right */}
+      <button
+        onClick={() => moveCamera(homeCameraPosition, homeCameraTarget, 'powerCube')}
+        className="fixed bottom-4 right-4 p-2 bg-black/70 text-white rounded-full hover:bg-black transition-colors z-50"
+        aria-label="Back to PowerCube"
+      >
+        <HomeIcon size={24} />
+      </button>
+
       {/* Signature text */}
-      <p className="signature">Edd Brisley [2025] <br></br> Lets connect on <a href="https://www.linkedin.com/in/edd-brisley/" target="_blank" rel="noopener noreferrer"><u>LinkedIn</u></a></p>
+      <p className="fixed bottom-4 left-4 text-white text-xs z-50">
+        Edd Brisley [2025] <br></br> Lets connect on <a href="https://www.linkedin.com/in/edd-brisley/" target="_blank" rel="noopener noreferrer"><u>LinkedIn</u></a></p>
     </div>
   )
 }

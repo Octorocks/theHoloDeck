@@ -31,7 +31,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
       end: new THREE.Vector3(0, 4, -25),
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 0, -15),
+        new THREE.Vector3(0, 1, -15),
         new THREE.Vector3(0, 3, -15),
       ],
     },
@@ -48,9 +48,9 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
       end: new THREE.Vector3(-30, 0, 25),
       points: [
         new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-7, 0, 10),
-        new THREE.Vector3(-15, 0, 10),
-        new THREE.Vector3(-15, 1, 10),
+        new THREE.Vector3(0, 0, 10),
+        new THREE.Vector3(-15, 0.4, 10),
+        new THREE.Vector3(-15, 0.6, 10),
       ],
     },
   ]
