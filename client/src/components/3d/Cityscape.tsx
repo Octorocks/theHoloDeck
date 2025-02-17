@@ -105,7 +105,6 @@ export function Cityscape({ onClick, isActive }: CityscapeProps) {
           <h3 className="text-xl font-bold mb-2">Experience</h3>
           <div className={`overflow-hidden transition-all duration-500 ${showText ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
             <div className="text-sm text-muted-foreground">
-              <p className="mb-3">Matrix:</p>
               <div className="grid grid-cols-2 gap-2">
                 {Object.entries(companies).map(([key, company]) => (
                   <div
