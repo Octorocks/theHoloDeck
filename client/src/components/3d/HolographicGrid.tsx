@@ -17,7 +17,7 @@ export function HolographicGrid() {
           attach="material" 
           color={0x00ff00} 
           transparent
-          opacity={0.2}
+          opacity={0.4}
           depthWrite={false}
         />
       </gridHelper>
@@ -56,7 +56,7 @@ export function HolographicGrid() {
               attach="material"
               color={0x00ff00}
               transparent
-              opacity={0.2}
+              opacity={0.4}
               depthWrite={false}
             />
           </gridHelper>
