@@ -56,8 +56,8 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
           minDistance={2} 
           maxDistance={50}
           // Restrict left-right movement within full rotation range
-          minAzimuthAngle={-Math.PI} 
-          maxAzimuthAngle={Math.PI}
+          //minAzimuthAngle={-Math.PI} 
+          //maxAzimuthAngle={Math.PI}
         />
 
         {/* Scene lighting */}
