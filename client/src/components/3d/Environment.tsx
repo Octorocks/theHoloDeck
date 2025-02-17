@@ -55,9 +55,9 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
           // Limit how far the camera can move forward and backward
           minDistance={2} 
           maxDistance={50}
-          // Restrict left-right movement within full rotation range
-          minAzimuthAngle={-Math.PI} 
-          maxAzimuthAngle={Math.PI}
+          // Allow full 360-degree rotation
+          minAzimuthAngle={-4 * Math.PI} 
+          maxAzimuthAngle={4 * Math.PI}
         />
 
         {/* Scene lighting */}
