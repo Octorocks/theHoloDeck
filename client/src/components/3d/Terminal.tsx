@@ -51,7 +51,7 @@ const projects: Project[] = [
   { 
     name: "Server Project", 
     tech: "Node.js, Linux, Custom APIs, Cloudflare proxy, JavaScript",
-    description: "This site is hosted entirely on a self-coded server, which is currently sat on my desk. Iterate headlessly via command line linux, don't get me started on the reverse proxy. "
+    description: "This site is hosted entirely on a self-coded server, which is currently sat on my desk. Iterate headlessly via command line linux, don't get me started on the reverse proxy."
 
   }
 ]
@@ -67,11 +67,26 @@ export function HoloTerminal({
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [clicked, setClicked] = useState(false);
 
+  // Reset the terminal to the "Ready" state when navigating away
+  useEffect(() => {
+    if (!isActive) {
+      setClicked(false);
+      setSelectedProject(null);
+    }
+  }, [isActive]);
+
   const handleLocalClick = (e: any) => {
     e.stopPropagation();
-    setClicked(true);
-    onClick();
+    if (!clicked) {
+      onClick(); // Move the camera to the specific vector
+      setClicked(true);
+    }
   }
+
+  const handleBackClick = (e: any) => {
+    e.stopPropagation();
+    setSelectedProject(null); // Reset to the "Select" state (clicked remains true)
+  };
 
   useFrame(() => {
     cardStates.forEach((state, index) => {
@@ -139,7 +154,7 @@ export function HoloTerminal({
           }
         }}
       >
-        <boxGeometry args={[3, 1.3, 0.1]} />
+        <boxGeometry args={[3.2, 1.3, 0.1]} />
         <meshStandardMaterial 
           color={0x000000}
           emissive={0x00ff00}
@@ -166,29 +181,19 @@ export function HoloTerminal({
         color={0x00ff00}
         anchorX="center"
         anchorY="middle"
-        onClick={(e) => {
-          e.stopPropagation();
-          if (selectedProject !== null) {
-            // If < BACK_ is clicked, reset state to return to READY state.
-            setSelectedProject(null);
-            setClicked(false);
-          } else {
-            // When the terminal is in its READY state, execute onClick to move the camera.
-            if (!clicked) {
-              onClick(); // This callback should move the camera to a specific vector.
-              setClicked(true);
-            }
-          }
-        }}
+        onClick={selectedProject !== null ? handleBackClick : handleLocalClick}
       >
         {selectedProject !== null ? '< BACK_' : clicked ? '> SELECT_' : '> READY_'}
       </Text>
 
       {/* Project details panel */}
-      <Html position={[-3, 0, 0]}>
-        <div className={`bg-background/90 p-4 rounded-lg transition-all duration-300 ${
-          clicked ? 'w-64 opacity-100' : 'w-32 opacity-80'
-        }`}>
+      <Html position={[-1.6, 6.5, 0]}>
+        <div
+          onClick={handleLocalClick}
+          className={`bg-background p-4 rounded-lg transition-all duration-300 ${
+            clicked ? 'w-[300px]' : 'w-32 opacity-80'
+          }`}
+        >
           <h3 className="text-xl font-bold mb-2">Projects</h3>
           <div className={`overflow-hidden transition-all duration-500 ${
             selectedProject !== null ? 'max-h-48' : 'max-h-24'
@@ -201,7 +206,7 @@ export function HoloTerminal({
               </>
             ) : (
               <p className="text-sm text-muted-foreground">
-                
+                {/* Placeholder text */}
               </p>
             )}
           </div>
@@ -212,11 +217,11 @@ export function HoloTerminal({
       {projects.map((project, index) => {
         let position: [number, number, number] = [0, 0, 0];
         if (index < 2) {
-          position = [-2.5, 1.3 + (index * 1.2), 0];
+          position = [-0.85, 4.1 + (index * 1.2), 0];
         } else if (index < 4) {
           position = [(index - 2.5) * 1.7, 2.9, 0];
         } else if (index < 6) {
-          position = [2.5, 1.3 + ((index - 4) * 1.2), 0];
+          position = [0.85, 4.1 + ((index - 4) * 1.2), 0];
         }
 
         return (

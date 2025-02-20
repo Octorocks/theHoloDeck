@@ -21,7 +21,7 @@ const FunkyMessage = () => {
     <div>
       {visible && (
         <p className="text-sm text-muted-foreground">
-          Toggle sound on <br></br> for a funky experience
+          Toggle sound on
         </p>
       )}
     </div>
@@ -194,8 +194,8 @@ export default function Home() {
             <button
               onClick={() =>
                 handleMenuItemClick(
-                  new THREE.Vector3(-7, 4, 6),
-                  new THREE.Vector3(-15, 1.5, 10),
+                  new THREE.Vector3(-7, 3, 6),
+                  new THREE.Vector3(-15, 3.5, 10),
                   "terminal"
                 )
               }

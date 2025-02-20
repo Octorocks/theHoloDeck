@@ -114,8 +114,8 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         <group position={[15, 0, -15]}>
           <HoloTerminal 
             onClick={() => onObjectSelect(
-              new THREE.Vector3(-2, 5, 2),  // Camera position: moved inward for better view
-              new THREE.Vector3(-15, 1.5, 10),
+              new THREE.Vector3(-7, 3, 6),
+              new THREE.Vector3(-15, 3.5, 10),
               'terminal'
             )}
             isActive={activeObject === 'terminal'}
