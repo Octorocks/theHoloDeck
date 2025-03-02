@@ -8,6 +8,10 @@ export const recommendations = [
     text: "Edd made a massive impact on our team during his time as a CRM Specialist, and I can't recommend him highly enough. His technical skills were a huge asset, and he consistently impressed me with his creative problem-solving abilities. \n \n He always demonstrated a deep understanding of our systems and a proactive approach to improving them. He was a real asset to the team, always tackling challenges with a positive and can-do attitude. He's a fast learner, and I'm absolutely certain he'll thrive in any technically challenging environment. \n \n Beyond his technical skills, Edd was a pleasure to work with. He brought such a positive vibe to the team, and everyone loved working with him. He was always willing to help others, and his enthusiasm was infectious. Any team would be lucky to have him.",
   },
   {
+    name: "George Britton  [Senior Programmer]",
+    text: "Humble with a mighty intellect, Edd is one of the fastest adapting programmers I know",
+  },
+  {
     name: "Benjamin Edwards [Associate Director]",
     text: "Edd is an absolute wizard. He's made such a big impact since joining the team and as a sales leader, the work he has done has made our lives much simpler. He's made a huge impression on building better systems for my team that allows us to spend more time selling and less time worrying about updating the CRM, which is a dream position to be in. \n \n Not only that but as a person Edd is a great guy to have around, really caring about the people around him, and being a strong positive voice supporting mental health.",
   },
