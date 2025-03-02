@@ -8,6 +8,7 @@ import { Cityscape } from './Cityscape'
 import { HoloTerminal } from './Terminal'
 import { useEffect, useState } from 'react' // React hooks for state and effects
 import * as THREE from 'three' // Import Three.js for 3D vector calculations
+import { Recommendation } from './Recommendation'
 
 // Define props for the Environment component
 interface EnvironmentProps {
@@ -15,6 +16,7 @@ interface EnvironmentProps {
   activeObject: string | null // Tracks the currently active object
   onControlsReady: (controls: any) => void // Callback when camera controls are ready
   onCameraReady: (camera: THREE.PerspectiveCamera) => void // Callback when the camera is ready
+  isActive: boolean // Add this line
 }
 
 // Environment component that sets up the 3D scene
@@ -107,6 +109,18 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
               'city'
             )}
             isActive={activeObject === 'city'}
+          />
+        </group>
+
+            {/* Right segment - recommendations */}
+        <group position={[14, 3, -11]}>
+          <Recommendation 
+            onClick={() => onObjectSelect(
+              new THREE.Vector3(10, 5, 0),  
+              new THREE.Vector3(15.5, 1, -15),  
+              'recommendation'
+            )}
+            isActive={activeObject === 'recommendation'}
           />
         </group>
 
