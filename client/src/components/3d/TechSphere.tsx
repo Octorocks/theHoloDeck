@@ -62,7 +62,7 @@ export function TechSphere({ onClick, isActive }: TechSphereProps) {
             <div className="space-y-4">
               <div>
                 <h4 className="text-lg text-cyan-400 font-semibold">Frontend</h4>
-                <p className="text-sm text-muted-foreground">HTML/CSS, TypeScript, JavaScript, HubL, JinJava, MS Paint (Don't @ me)</p>
+                <p className="text-sm text-muted-foreground">HTML/CSS, TypeScript, JavaScript, HubL</p>
               </div>
               <div>
                 <h4 className="text-lg text-fuchsia-400 font-semibold">Backend</h4>
