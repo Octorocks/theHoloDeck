@@ -15,7 +15,7 @@ export function HolographicGrid() {
       >
         <meshBasicMaterial 
           attach="material" 
-          color={0xfff200} 
+          color={0x00ff00} 
           transparent
           opacity={0.4}
           depthWrite={false}
@@ -54,7 +54,7 @@ export function HolographicGrid() {
           >
             <meshBasicMaterial
               attach="material"
-              color={0xfff200}
+              color={0x00ff00}
               transparent
               opacity={0.4}
               depthWrite={false}

@@ -46,13 +46,11 @@
 }
 
 .hamburger-button {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 50;
   background: transparent;
   border: none;
+  padding: 0.5rem;
   cursor: pointer;
+  position: relative;
 }
 
 .hamburger-button svg {
@@ -63,61 +61,41 @@
 
 /* Styles for the dropdown menu */
 .menu {
-  position: fixed;
-  top: 4rem;
-  right: 1rem;
-  background: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.95);
   border-radius: 0.5rem;
-  padding: 0.5rem;
-  list-style: none;
-  width: 200px;
-  z-index: 50;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  max-height: 0;
   opacity: 0;
-  transform: translateY(-20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none; /* Disable clicks when menu is closed */
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 .menu.open {
+  max-height: 300px; /* Adjust as necessary */
   opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto; /* Enable clicks when menu is open */
+}
+
+.menu li {
+  list-style: none;
+}
+
+.menu li + li {
+  margin-top: 0.25rem;
 }
 
 .menu li button {
-  display: flex;
-  align-items: center;
   width: 100%;
-  padding: 0.5rem 0.75rem; /* Reduced right padding */
+  text-align: left;
   background: transparent;
+  color: #fff;
+  padding: 0.5rem 1rem;
   border: none;
   cursor: pointer;
-  color: #07a161; /* Light green for text */
 }
 
 .menu li button:hover {
   background: rgba(255, 255, 255, 0.1);
-}
-
-/* Unique colors for each icon */
-.menu li:nth-child(1) button svg {
-  color: #00ff88; /* Neon green */
-}
-
-.menu li:nth-child(2) button svg {
-  color: #00ffff; /* Cyan */
-}
-
-.menu li:nth-child(3) button svg {
-  color: #ff00ff; /* Magenta */
-}
-
-.menu li:nth-child(4) button svg {
-  color: #ffcc00; /* Gold */
-}
-
-.menu li:nth-child(5) button svg {
-  color: #ff007f; /* Hot pink */
 }
 
 .menu-item {
@@ -127,7 +105,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.5s ease; /* Smooth transition for icons */
+  transition: transform 0.3s ease; /* Smooth transition for icons */
 }
 
 .menu-item:hover {

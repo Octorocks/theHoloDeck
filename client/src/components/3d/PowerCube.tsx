@@ -53,16 +53,6 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
         new THREE.Vector3(-15, 0.6, 10),
       ],
     },
-    {
-      end: new THREE.Vector3(30, 0, 25), // recommendation vector
-      points: [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(1, 0.11, -3),
-        new THREE.Vector3(10, 0.2, -11),
-        new THREE.Vector3(13, 1, -11),
-      ],
-    },
-    
   ]
 
   useEffect(() => {
@@ -83,7 +73,7 @@ export function PowerCube({ position, onLoad, onClick }: PowerCubeProps) {
 
     if (meshRef.current) {
       // Slowly rotate the Cube
-      meshRef.current.rotation.y += 0.001
+      meshRef.current.rotation.y += 0.01
       material.uniforms.time.value = time
     }
 
