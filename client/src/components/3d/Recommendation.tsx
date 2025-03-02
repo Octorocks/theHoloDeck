@@ -73,40 +73,42 @@ export function Recommendation({ onClick, isActive }: RecommendProps) {
         >
           <h3 className="text-xl font-bold mb-2">Endorsements</h3>
           {isExpanded && (
+            <div className="flex justify-between mb-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevRecommendation();
+                }}
+                className="text-primary hover:text-primary/80 transition-colors duration-500"
+              >
+                Previous
+              </button>
+              <div className="flex items-center gap-2">
+                <div className="w-20 h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#00ff88] transition-all duration-500"
+                    style={{ width: `${((currentIndex + 1) / recommendations.length) * 100}%` }}
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {currentIndex + 1} of {recommendations.length}
+                </p>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextRecommendation();
+                }}
+                className="text-primary hover:text-primary/80 transition-colors duration-500"
+              >
+                Next
+              </button>
+            </div>
+          )}
+          {isExpanded && (
             <div className="text-sm text-muted-foreground transition-opacity duration-500">
               <p className="mb-2 whitespace-pre-line">{recommendations[currentIndex].text}</p>
               <p className="text-primary font-semibold">— {recommendations[currentIndex].name}</p>
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevRecommendation();
-                  }}
-                  className="text-primary hover:text-primary/80 transition-colors duration-500"
-                >
-                  Previous
-                </button>
-                <div className="flex items-center gap-2">
-                  <div className="w-20 h-2 bg-gray-700 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-[#00ff88] transition-all duration-500"
-                      style={{ width: `${((currentIndex + 1) / recommendations.length) * 100}%` }}
-                    />
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    {currentIndex + 1} of {recommendations.length}
-                  </p>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextRecommendation();
-                  }}
-                  className="text-primary hover:text-primary/80 transition-colors duration-500"
-                >
-                  Next
-                </button>
-              </div>
             </div>
           )}
         </div>
