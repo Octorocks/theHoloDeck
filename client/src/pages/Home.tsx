@@ -6,22 +6,35 @@ import { Music, Volume2, VolumeX, Menu, Home as HomeIcon } from 'lucide-react'
 import { useAudio } from '../hooks/use-audio'
 import { HoloTerminal } from '../components/3d/Terminal' // Import the terminal component
 import '../index.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faUser,
+  faBriefcase,
+  faCode,
+  faProjectDiagram,
+  faThumbsUp,
+} from '@fortawesome/free-solid-svg-icons';
 
 
 // make sure this message is only visible for 10 seconds, for the sake of mobile users
 const FunkyMessage = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(false), 10000); // Message visible for 10 seconds
-    return () => clearTimeout(timer); // Cleanup on unmount
+    const showTimer = setTimeout(() => setVisible(true), 10000); // Show after 10 seconds
+    const hideTimer = setTimeout(() => setVisible(false), 15000); // Hide after 15 seconds (10 + 5)
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, []);
 
   return (
     <div>
       {visible && (
         <p className="text-sm text-muted-foreground">
-          Toggle sound on
+          Toggle sound on.
         </p>
       )}
     </div>
@@ -103,7 +116,8 @@ export default function Home() {
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-    setIsActive(false);
+    setActiveObject(null); // Reset active object
+    setIsActive(false); // Explicitly set isActive to false
   };
 
   const handleMenuItemClick = (cameraPosition: THREE.Vector3, target: THREE.Vector3, objectId: string) => {
@@ -120,16 +134,17 @@ export default function Home() {
     <div className="w-full h-screen overflow-hidden bg-black relative">
       {/* 3D Environment Component */}
       <Environment 
-        onObjectSelect={moveCamera} // Callback when an object is selected
-        activeObject={activeObject} // Pass active object state
-        onControlsReady={setControls} // Set controls when ready
-        onCameraReady={setCamera} // Set camera when ready
+        onObjectSelect={moveCamera}
+        activeObject={activeObject}
+        onControlsReady={setControls}
+        onCameraReady={setCamera}
+        isActive={isActive}
       />
 
       {/* Title & Instructions (Fixed at the top-left) */}
       <div className="fixed top-4 left-4 z-10">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-primary">HoloDeck <br></br> Portfolio.</h1>
+          <h1 className="text-2xl font-bold text-primary">HoloDeck <br></br> CV.</h1>
           <button
             onClick={toggleMusic}
             className="p-2 rounded-full hover:bg-muted transition-colors"
@@ -161,7 +176,7 @@ export default function Home() {
                 )
               }
             >
-              🤚
+              <FontAwesomeIcon icon={faUser} className="mr-2" /> About Me
             </button>
           </li>
           <li>
@@ -174,7 +189,7 @@ export default function Home() {
                 )
               }
             >
-              🧠
+              <FontAwesomeIcon icon={faCode} className="mr-2" /> Skills
             </button>
           </li>
           <li>
@@ -187,7 +202,7 @@ export default function Home() {
                 )
               }
             >
-              👩‍💻
+              <FontAwesomeIcon icon={faBriefcase} className="mr-2" /> Experience
             </button>
           </li>
           <li>
@@ -200,7 +215,20 @@ export default function Home() {
                 )
               }
             >
-              🏗
+              <FontAwesomeIcon icon={faProjectDiagram} className="mr-2" /> Projects
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() =>
+                handleMenuItemClick(
+                  new THREE.Vector3(10, 5, 0),  
+                  new THREE.Vector3(15.5, 1, -15),
+                  "recommendation"
+                )
+              }
+            >
+              <FontAwesomeIcon icon={faThumbsUp} className="mr-2" /> Endorsements
             </button>
           </li>
         </ul>
@@ -209,7 +237,7 @@ export default function Home() {
       {/* Home Icon - Fixed at Bottom Right */}
       <button
         onClick={() => moveCamera(homeCameraPosition, homeCameraTarget, 'powerCube')}
-        className="fixed bottom-4 right-4 p-2 bg-black/70 text-white rounded-full hover:bg-black transition-colors z-50"
+        className="fixed bottom-4 right-4 p-2 bg-black/70 text-[#00ff88] rounded-full hover:bg-[rgba(0,255,136,0.2)] transition-colors z-50"
         aria-label="Back to PowerCube"
       >
         <HomeIcon size={24} />

@@ -51,7 +51,7 @@ const projects: Project[] = [
   { 
     name: "Server Project", 
     tech: "Node.js, Linux, Custom APIs, Cloudflare proxy, JavaScript",
-    description: "This site is hosted entirely on a self-coded server, which is currently sat on my desk. Iterate headlessly via command line linux, don't get me started on the reverse proxy."
+    description: "This site is hosted entirely on a self-coded server, which is currently sat on my desk. Iteration is done headlessly via command line linux and git, don't get me started on the reverse proxy."
 
   }
 ]
