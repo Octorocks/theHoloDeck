@@ -113,11 +113,11 @@ export function Environment({ onObjectSelect, activeObject, onControlsReady, onC
         </group>
 
             {/* Right segment - recommendations */}
-        <group position={[15.5, 1, -15]}>
+        <group position={[14, 3, -11]}>
           <Recommendation 
             onClick={() => onObjectSelect(
               new THREE.Vector3(10, 5, 0),  
-              new THREE.Vector3(15.5, 1, -15),  
+              new THREE.Vector3(14, 3, -11),  
               'recommendation'
             )}
             isActive={activeObject === 'recommendation'}
