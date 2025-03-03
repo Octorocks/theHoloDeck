@@ -223,7 +223,7 @@ export default function Home() {
               onClick={() =>
                 handleMenuItemClick(
                   new THREE.Vector3(10, 5, 0),  
-                  new THREE.Vector3(15.5, 1, -15),
+                  new THREE.Vector3(14, 3, -11),
                   "recommendation"
                 )
               }
